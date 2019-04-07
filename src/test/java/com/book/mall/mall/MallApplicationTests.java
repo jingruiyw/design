@@ -1,5 +1,7 @@
 package com.book.mall.mall;
 
+import com.book.mall.mall.entity.Goods;
+import com.book.mall.mall.mapper.GoodsMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class MallApplicationTests {
 
 	@Autowired
 	DataSource dataSource;
+	@Autowired
+	GoodsMapper goodsMapper;
 
 	@Test
 	public void contextLoads() {
@@ -28,6 +32,11 @@ public class MallApplicationTests {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void getById() {
+		System.out.println(goodsMapper.getById(1L).getName());
 	}
 
 }
