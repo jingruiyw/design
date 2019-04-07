@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC " -//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="/Users/pxcm-0101-01-0053/Documents/apache-maven-3.5.3/resp/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        　　　　 <!-- mysql数据库连接 -->　
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql:localhost:3306/litemall" userId="root"
+                        password="12345678"/>
+
+        　　　　　<!-- 生成model实体类文件位置 -->
+        <javaModelGenerator targetPackage="com.book.mall.mall.entity"
+                            targetProject="/Users/pxcm-0101-01-0053/Documents/school_work/mall/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        　　　　　<!-- 生成mapper.xml配置文件位置 -->
+        <sqlMapGenerator targetPackage="com.book.mall.mall.mapper"
+                         targetProject="/Users/pxcm-0101-01-0053/Documents/school_work/mall/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapper接口文件位置 -->
+        <javaClientGenerator targetPackage="com.book.mall.mall.mapper"
+                             targetProject="/Users/pxcm-0101-01-0053/Documents/school_work/mall/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        　　　　 <!-- 需要生成的实体类对应的表名，多个实体类复制多份该配置即可 -->
+        <table tableName="litemall_admin" domainObjectName="userAdmin"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+        </table>
+    </context>
+</generatorConfiguration>
