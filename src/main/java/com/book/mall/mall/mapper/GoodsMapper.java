@@ -11,4 +11,6 @@ public interface GoodsMapper {
 
     @Select("select * from goods where id = #{id}")
     public Goods getById(Long id);
+
+    
 }
