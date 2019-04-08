@@ -1,7 +1,5 @@
 package com.book.mall.mall.controller;
 
-import com.book.mall.mall.entity.Goods;
-import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.resbean.SimpleBook;
 import com.book.mall.mall.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
