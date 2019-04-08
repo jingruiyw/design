@@ -1,10 +1,11 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Goods;
-import com.book.mall.mall.resbean.SimpleBook;
 import com.book.mall.mall.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -20,8 +21,13 @@ public class GoodsController {
         return "hello everyone";
     }
 
-    @GetMapping("/find/{id}")
-    public Goods getGoods(@PathVariable("id") Long id){
+    @GetMapping("/find")
+    public List<Goods> findGoods(){
+        return goodsService.findAll();
+    }
+
+    @GetMapping("/get")
+    public Goods getGoods(Long id){
         return goodsService.getById(id);
     }
 
@@ -41,5 +47,4 @@ public class GoodsController {
         goodsService.updateGoods(goods);
         return goodsService.getById(goods.getId());
     }
-
 }

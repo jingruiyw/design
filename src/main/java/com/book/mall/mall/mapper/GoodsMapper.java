@@ -4,8 +4,13 @@ import com.book.mall.mall.entity.Goods;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface GoodsMapper {
+
+    @Select("select * from goods")
+    public List<Goods> findAll();
 
     @Select("select * from goods where id = #{id}")
     public Goods getById(Long id);
