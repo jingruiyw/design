@@ -1,5 +1,6 @@
 package com.book.mall.mall.controller;
 
+import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.resbean.SimpleBook;
 import com.book.mall.mall.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,25 @@ public class GoodsController {
     }
 
     @GetMapping("/find/{id}")
-    public SimpleBook getGoods(@PathVariable("id") Long id){
+    public Goods getGoods(@PathVariable("id") Long id){
         return goodsService.getById(id);
     }
+
+    @GetMapping("/add")
+    public Goods addGoods(Goods goods){
+        goodsService.addGoods(goods);
+        return goods;
+    }
+
+    @GetMapping("/del")
+    public void delGoods(Long id){
+        goodsService.delGood(id);
+    }
+
+    @GetMapping("/update")
+    public Goods updateGoods(Goods goods){
+        goodsService.updateGoods(goods);
+        return goodsService.getById(goods.getId());
+    }
+
 }

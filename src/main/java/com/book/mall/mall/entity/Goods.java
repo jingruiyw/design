@@ -6,11 +6,20 @@ public class Goods {
     private String name;
     private Double price;
     private Integer number;
+    private String kind;
     private Integer stock;
     private String image;
     private String status;
     private String remark;
     private String createTime;
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
     public Long getId() {
         return id;

@@ -12,15 +12,36 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
-    public SimpleBook getById(Long id) {
+    public Goods getById(Long id) {
         Goods goods =  goodsMapper.getById(id);
 
         SimpleBook sb = new SimpleBook();
         sb.setId(goods.getId());
         sb.setName(goods.getName());
 
-        return sb;
+        return goods;
     }
 
+    public void addGoods(Goods goods){
+        if(goods.getNumber() == null){
+            goods.setNumber(0);
+        }
 
+        if(goods.getStock() == null) {
+            goods.setStock(0);
+        }
+
+        if(goods.getRemark() == null) {
+            goods.setRemark("");
+        }
+        goodsMapper.addGoods(goods);
+    }
+
+    public void delGood(Long id){
+        goodsMapper.delById(id);
+    }
+
+    public void updateGoods(Goods goods){
+        goodsMapper.updateGoods(goods);
+    }
 }
