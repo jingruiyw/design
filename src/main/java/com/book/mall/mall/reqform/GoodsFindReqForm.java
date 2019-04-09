@@ -5,10 +5,10 @@ public class GoodsFindReqForm {
     private Long id;
     private String name;
     private String kind;
-    private Integer pageSize;
-    private Integer pageNo;
-    private Integer start;
-    private Integer end;
+    private Integer pageSize = 100;
+    private Integer pageNo = 1;
+    private Integer start = 0;
+    private Integer end = 1000;
 
     public Integer getStart() {
         return start;

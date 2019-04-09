@@ -7,7 +7,6 @@ public class GoodsAddReqForm {
     private Double price;
     private Integer number;
     private String kind;
-    private Integer stock;
     private String image;
     private String status;
     private String remark;
@@ -51,14 +50,6 @@ public class GoodsAddReqForm {
 
     public void setKind(String kind) {
         this.kind = kind;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public String getImage() {

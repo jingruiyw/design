@@ -43,9 +43,9 @@ public interface GoodsMapper {
     public int delById(Long id);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into goods(name, price, number, kind, stock, image, status, remark,createTime) values(#{name}, #{price},#{number},#{kind},#{stock},#{image},#{status},#{remark},#{createTime})")
+    @Insert("insert into goods(name, price, number, kind, image, status, remark,createTime) values(#{name}, #{price},#{number},#{kind},#{image},#{status},#{remark},#{createTime})")
     public int addGoods(GoodsAddReqForm reqForm);
 
-    @Update("update goods set name= #{name}, price= #{price}, number= #{number}, kind= #{kind}, stock= #{stock}, image=#{image}, status=#{status}, remark=#{remark}, createTime=#{createTime} where id = #{id}")
+    @Update("update goods set name= #{name}, price= #{price}, number= #{number}, kind= #{kind}, image=#{image}, status=#{status}, remark=#{remark}, createTime=#{createTime} where id = #{id}")
     public int updateGoods(Goods goods);
 }

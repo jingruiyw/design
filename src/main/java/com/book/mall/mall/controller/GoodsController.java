@@ -1,8 +1,11 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Goods;
+import com.book.mall.mall.reqform.GoodUpdateReqForm;
 import com.book.mall.mall.reqform.GoodsAddReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
+import com.book.mall.mall.resbean.GoodsAddResBean;
+import com.book.mall.mall.resbean.GoodsUpdateResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
@@ -54,8 +57,8 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addGoods(@RequestBody GoodsAddReqForm reqForm){
-        goodsService.addGoods(reqForm);
+    public GoodsAddResBean addGoods(@RequestBody GoodsAddReqForm reqForm){
+        return goodsService.addGoods(reqForm);
     }
 
     @GetMapping("/del")
@@ -63,9 +66,8 @@ public class GoodsController {
         goodsService.delGood(id);
     }
 
-    @GetMapping("/update")
-    public Goods updateGoods(Goods goods){
-        goodsService.updateGoods(goods);
-        return goodsService.getById(goods.getId());
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public GoodsUpdateResBean updateGoods(@RequestBody GoodUpdateReqForm reqForm){
+        return goodsService.updateGoods(reqForm);
     }
 }
