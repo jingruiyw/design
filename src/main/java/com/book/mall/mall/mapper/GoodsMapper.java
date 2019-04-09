@@ -14,8 +14,8 @@ public interface GoodsMapper {
     @Select("select * from goods where name like CONCAT(#{name},'%')")
     public List<Goods> findByName(String name);
 
-    @Select("select * from goods limit #{pageSize} offset ("+"#{pageNum}"+"-1) * #{pageSize} ")
-    public List<Goods> findAll(@Param("pageSize") Integer pageSize, @Param("pageNum") Integer pageNum);
+    @Select("select * from goods limit #{start} offset #{end} ")
+    public List<Goods> findAll(@Param("start") Integer start, @Param("end") Integer end);
 
     @Select("select * from goods where id = #{id}")
     public Goods getById(Long id);

@@ -26,7 +26,11 @@ public class GoodsService {
     }
 
     public List<Goods> findAll(Integer pageSize, Integer pageNum){
-        List<Goods> goods = goodsMapper.findAll(pageSize, pageNum);
+
+        Integer start = pageSize;
+        Integer end = (pageNum-1)*pageSize + 1;
+
+        List<Goods> goods = goodsMapper.findAll(start, end);
         for(Goods good : goods) {
             good.setCreateTime(DateUtil.formatDate(Long.parseLong(good.getCreateTime())));
         }
