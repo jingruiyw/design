@@ -2,11 +2,13 @@ package com.book.mall.mall.service;
 
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.mapper.GoodsMapper;
+import com.book.mall.mall.reqform.GoodsAddReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -17,16 +19,6 @@ public class GoodsService {
 
     public Long getTotal(GoodsFindReqForm reqForm){
         return goodsMapper.getTotal(reqForm);
-    }
-
-    public List<Goods> findByName(GoodsFindReqForm reqForm){
-
-        List<Goods> goods = goodsMapper.findByName(reqForm.getName());
-        for(Goods good : goods) {
-            good.setCreateTime(DateUtil.formatDate(Long.parseLong(good.getCreateTime())));
-        }
-
-        return goods;
     }
 
     public List<Goods> findByConditions(GoodsFindReqForm reqForm){
@@ -40,18 +32,6 @@ public class GoodsService {
         return goodsMapper.findByConditions(reqForm);
     }
 
-    public List<Goods> findAll(Integer pageSize, Integer pageNo){
-
-        Integer start = pageSize;
-        Integer end = (pageNo-1)*pageSize;
-
-        List<Goods> goods = goodsMapper.findAll(start, end);
-        for(Goods good : goods) {
-            good.setCreateTime(DateUtil.formatDate(Long.parseLong(good.getCreateTime())));
-        }
-        return goods;
-    }
-
     public Goods getById(Long id) {
         Goods goods =  goodsMapper.getById(id);
 
@@ -62,19 +42,21 @@ public class GoodsService {
         return goods;
     }
 
-    public void addGoods(Goods goods){
-        if(goods.getNumber() == null){
-            goods.setNumber(0);
+    public void addGoods(GoodsAddReqForm reqForm){
+        if(reqForm.getNumber() == null){
+            reqForm.setNumber(0);
         }
 
-        if(goods.getStock() == null) {
-            goods.setStock(0);
+        if(reqForm.getStock() == null) {
+            reqForm.setStock(0);
         }
 
-        if(goods.getRemark() == null) {
-            goods.setRemark("");
+        if(reqForm.getRemark() == null) {
+            reqForm.setRemark("");
         }
-        goodsMapper.addGoods(goods);
+
+        reqForm.setCreateTime(Instant.now().toEpochMilli());
+        goodsMapper.addGoods(reqForm);
     }
 
     public void delGood(Long id){

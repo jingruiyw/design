@@ -1,6 +1,7 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Goods;
+import com.book.mall.mall.reqform.GoodsAddReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.service.GoodsService;
 import com.github.pagehelper.PageInfo;
@@ -24,12 +25,7 @@ public class GoodsController {
         return "hello everyone";
     }
 
-    @RequestMapping(value = "/findByName", method = RequestMethod.POST)
-    public List<Goods> findByName(@RequestBody GoodsFindReqForm reqForm){
-        return goodsService.findByName(reqForm);
-    }
-
-    @RequestMapping(value = "/findByConditions", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
         if(reqForm.getKind().equals("")){
@@ -38,34 +34,28 @@ public class GoodsController {
 
         List<Goods> goods = goodsService.findByConditions(reqForm);
         PageInfo<Goods> page = new PageInfo<>(goods);
+        Long total = goodsService.getTotal(reqForm);
+        Integer pageSize = reqForm.getPageSize();
+        Integer pageNo = reqForm.getPageNo();
+        Long totalPage = total/pageSize + 1;
+        if(totalPage > pageNo) {
+            page.setHasNextPage(true);
+        }
         page.setTotal(goods.size());
         page.setPageSize(reqForm.getPageSize());
         page.setPageNum(reqForm.getPageNo());
-        page.setTotal(goodsService.getTotal(reqForm));
+        page.setTotal(total);
         return page;
     }
 
-    @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public PageInfo<Goods> findGoods(@RequestBody GoodsFindReqForm reqForm){
-
-        List<Goods> goods = goodsService.findAll(reqForm.getPageSize(), reqForm.getPageNo());
-
-        PageInfo<Goods> page = new PageInfo<>(goods);
-        page.setTotal(goods.size());
-        page.setPageSize(reqForm.getPageSize());
-        page.setPageNum(reqForm.getPageNo());
-        return page;
-    }
-
-    @RequestMapping("/get")
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     public Goods getGoods(@Param("id") Long id){
         return goodsService.getById(id);
     }
 
-    @GetMapping("/add")
-    public Goods addGoods(Goods goods){
-        goodsService.addGoods(goods);
-        return goods;
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addGoods(@RequestBody GoodsAddReqForm reqForm){
+        goodsService.addGoods(reqForm);
     }
 
     @GetMapping("/del")
