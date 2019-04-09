@@ -14,6 +14,17 @@ public interface GoodsMapper {
     public List<Goods> findByName(String name);
 
     @Select("<script>" +
+            "select count(*) from goods " +
+            "<where>" +
+            "<bind name= 'name' value= \" '%' + name + '%'\" />" +
+            "<if test='name != null'> AND name like #{name} </if>" +
+            "<if test='kind != null'> AND kind = #{kind} </if>" +
+            "</where>" +
+            "limit #{start} offset #{end} " +
+            "</script>")
+    public Long getTotal(GoodsFindReqForm reqForm);
+
+    @Select("<script>" +
             "select * from goods " +
             "<where>" +
             "<bind name= 'name' value= \" '%' + name + '%'\" />" +

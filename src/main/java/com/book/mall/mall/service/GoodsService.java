@@ -15,6 +15,10 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
+    public Long getTotal(GoodsFindReqForm reqForm){
+        return goodsMapper.getTotal(reqForm);
+    }
+
     public List<Goods> findByName(GoodsFindReqForm reqForm){
 
         List<Goods> goods = goodsMapper.findByName(reqForm.getName());

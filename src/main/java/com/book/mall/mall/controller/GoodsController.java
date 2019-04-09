@@ -3,8 +3,6 @@ package com.book.mall.mall.controller;
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.service.GoodsService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +33,11 @@ public class GoodsController {
     public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
         List<Goods> goods = goodsService.findByConditions(reqForm);
-        PageInfo<Goods> page = new PageInfo(goods);
+        PageInfo<Goods> page = new PageInfo<>(goods);
         page.setTotal(goods.size());
         page.setPageSize(reqForm.getPageSize());
         page.setPageNum(reqForm.getPageNo());
+        page.setTotal(goodsService.getTotal(reqForm));
         return page;
     }
 
@@ -47,7 +46,7 @@ public class GoodsController {
 
         List<Goods> goods = goodsService.findAll(reqForm.getPageSize(), reqForm.getPageNo());
 
-        PageInfo<Goods> page = new PageInfo(goods);
+        PageInfo<Goods> page = new PageInfo<>(goods);
         page.setTotal(goods.size());
         page.setPageSize(reqForm.getPageSize());
         page.setPageNum(reqForm.getPageNo());
