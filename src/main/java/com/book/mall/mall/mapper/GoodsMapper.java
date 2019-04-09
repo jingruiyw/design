@@ -33,9 +33,6 @@ public interface GoodsMapper {
             "</script>")
     public List<Goods> findByConditions(GoodsFindReqForm reqForm);
 
-    @Select("select * from goods limit #{start} offset #{end} ")
-    public List<Goods> findAll(@Param("start") Integer start, @Param("end") Integer end);
-
     @Select("select * from goods where id = #{id}")
     public Goods getById(Long id);
 

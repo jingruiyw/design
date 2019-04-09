@@ -31,7 +31,7 @@ public class GoodsController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
-        if(reqForm.getKind().equals("")){
+        if("".equals(reqForm.getKind())){
             reqForm.setKind(null);
         }
 

@@ -55,15 +55,21 @@ public class GoodsService {
         req.setName(name);
         req.setKind(kind);
 
-        List<Goods> goods = goodsMapper.findByConditions(req);
+//        List<Goods> goods = goodsMapper.findByConditions(req);
+        List<Goods> goods = this.findByConditions(req);
 
         //存在就调用更新方法，把原来的库存更改为传入库存加原来库存
         if(goods.size() != 0){
-
+            Goods entity = goods.get(0);
+            int newNum = reqForm.getNumber();
+            int oldNum = entity.getNumber();
+            int total = newNum + oldNum;
+            entity.setNumber(total);
+            goodsMapper.updateGoods(entity);
+            return resBean;
         }
 
         //不存在就添加
-
         //数量不传就默认是1
         if(reqForm.getNumber() == null){
             reqForm.setNumber(1);
