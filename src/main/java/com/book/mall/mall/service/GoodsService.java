@@ -55,8 +55,7 @@ public class GoodsService {
         req.setName(name);
         req.setKind(kind);
 
-//        List<Goods> goods = goodsMapper.findByConditions(req);
-        List<Goods> goods = this.findByConditions(req);
+        List<Goods> goods = goodsMapper.findByConditions(req);
 
         //存在就调用更新方法，把原来的库存更改为传入库存加原来库存
         if(goods.size() != 0){
