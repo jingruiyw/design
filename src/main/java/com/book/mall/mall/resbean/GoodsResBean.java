@@ -1,6 +1,6 @@
 package com.book.mall.mall.resbean;
 
-public class SimpleBook {
+public class GoodsResBean {
 
     private Long id;
     private String name;

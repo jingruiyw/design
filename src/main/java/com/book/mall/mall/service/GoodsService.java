@@ -2,6 +2,7 @@ package com.book.mall.mall.service;
 
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.mapper.GoodsMapper;
+import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,18 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
-    public List<Goods> findAll(){
-        List<Goods> goods = goodsMapper.findAll();
+    public List<Goods> findByName(GoodsFindReqForm reqForm){
+
+        List<Goods> goods = goodsMapper.findByName(reqForm.getName());
+        for(Goods good : goods) {
+            good.setCreateTime(DateUtil.formatDate(Long.parseLong(good.getCreateTime())));
+        }
+
+        return goods;
+    }
+
+    public List<Goods> findAll(Integer pageSize, Integer pageNum){
+        List<Goods> goods = goodsMapper.findAll(pageSize, pageNum);
         for(Goods good : goods) {
             good.setCreateTime(DateUtil.formatDate(Long.parseLong(good.getCreateTime())));
         }

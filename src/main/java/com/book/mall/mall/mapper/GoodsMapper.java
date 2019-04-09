@@ -9,8 +9,13 @@ import java.util.List;
 @Component
 public interface GoodsMapper {
 
-    @Select("select * from goods")
-    public List<Goods> findAll();
+
+
+    @Select("select * from goods where name like CONCAT(#{name},'%')")
+    public List<Goods> findByName(String name);
+
+    @Select("select * from goods limit #{pageSize} offset ("+"#{pageNum}"+"-1) * #{pageSize} ")
+    public List<Goods> findAll(@Param("pageSize") Integer pageSize, @Param("pageNum") Integer pageNum);
 
     @Select("select * from goods where id = #{id}")
     public Goods getById(Long id);
