@@ -6,6 +6,7 @@ import com.book.mall.mall.reqform.GoodUpdateReqForm;
 import com.book.mall.mall.reqform.GoodsAddReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.resbean.GoodsAddResBean;
+import com.book.mall.mall.resbean.GoodsDelResBean;
 import com.book.mall.mall.resbean.GoodsUpdateResBean;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,12 @@ public class GoodsService {
         return resBean;
     }
 
-    public void delGood(Long id){
+    public GoodsDelResBean delGood(Long id){
+        GoodsDelResBean resBean = new GoodsDelResBean();
+        resBean.setCode(0);
         goodsMapper.delById(id);
+
+        return resBean;
     }
 
     public GoodsUpdateResBean updateGoods(GoodUpdateReqForm reqForm){

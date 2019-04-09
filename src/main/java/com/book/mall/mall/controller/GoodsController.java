@@ -5,6 +5,7 @@ import com.book.mall.mall.reqform.GoodUpdateReqForm;
 import com.book.mall.mall.reqform.GoodsAddReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.resbean.GoodsAddResBean;
+import com.book.mall.mall.resbean.GoodsDelResBean;
 import com.book.mall.mall.resbean.GoodsUpdateResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.github.pagehelper.PageInfo;
@@ -61,9 +62,9 @@ public class GoodsController {
         return goodsService.addGoods(reqForm);
     }
 
-    @GetMapping("/del")
-    public void delGoods(Long id){
-        goodsService.delGood(id);
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    public GoodsDelResBean delGoods(@Param("id") Long id){
+        return goodsService.delGood(id);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
