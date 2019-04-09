@@ -35,6 +35,8 @@ public class GoodsService {
 
         reqForm.setStart(start);
         reqForm.setEnd(end);
+
+
         return goodsMapper.findByConditions(reqForm);
     }
 

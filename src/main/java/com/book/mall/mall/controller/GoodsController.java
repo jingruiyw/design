@@ -32,6 +32,10 @@ public class GoodsController {
     @RequestMapping(value = "/findByConditions", method = RequestMethod.POST)
     public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
+        if(reqForm.getKind().equals("")){
+            reqForm.setKind(null);
+        }
+
         List<Goods> goods = goodsService.findByConditions(reqForm);
         PageInfo<Goods> page = new PageInfo<>(goods);
         page.setTotal(goods.size());
