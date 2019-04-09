@@ -6,6 +6,7 @@ import com.book.mall.mall.service.GoodsService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,18 +31,31 @@ public class GoodsController {
         return goodsService.findByName(reqForm);
     }
 
-    @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public PageInfo<Goods> findGoods(@RequestBody GoodsFindReqForm reqForm){
+    @RequestMapping(value = "/findByConditions", method = RequestMethod.POST)
+    public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
-//        PageHelper.startPage(reqForm.getPageNum(), reqForm.getPageSize());
-        List<Goods> goods = goodsService.findAll(reqForm.getPageSize(), reqForm.getPageNum());
-
+        List<Goods> goods = goodsService.findByConditions(reqForm);
         PageInfo<Goods> page = new PageInfo(goods);
+        page.setTotal(goods.size());
+        page.setPageSize(reqForm.getPageSize());
+        page.setPageNum(reqForm.getPageNo());
         return page;
     }
 
-    @GetMapping("/get")
-    public Goods getGoods(Long id){
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public PageInfo<Goods> findGoods(@RequestBody GoodsFindReqForm reqForm){
+
+        List<Goods> goods = goodsService.findAll(reqForm.getPageSize(), reqForm.getPageNo());
+
+        PageInfo<Goods> page = new PageInfo(goods);
+        page.setTotal(goods.size());
+        page.setPageSize(reqForm.getPageSize());
+        page.setPageNum(reqForm.getPageNo());
+        return page;
+    }
+
+    @RequestMapping("/get")
+    public Goods getGoods(@Param("id") Long id){
         return goodsService.getById(id);
     }
 

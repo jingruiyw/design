@@ -25,10 +25,19 @@ public class GoodsService {
         return goods;
     }
 
-    public List<Goods> findAll(Integer pageSize, Integer pageNum){
+    public List<Goods> findByConditions(GoodsFindReqForm reqForm){
+        Integer start = reqForm.getPageSize();
+        Integer end = (reqForm.getPageNo()-1)*reqForm.getPageSize();
+
+        reqForm.setStart(start);
+        reqForm.setEnd(end);
+        return goodsMapper.findByConditions(reqForm);
+    }
+
+    public List<Goods> findAll(Integer pageSize, Integer pageNo){
 
         Integer start = pageSize;
-        Integer end = (pageNum-1)*pageSize + 1;
+        Integer end = (pageNo-1)*pageSize;
 
         List<Goods> goods = goodsMapper.findAll(start, end);
         for(Goods good : goods) {

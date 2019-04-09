@@ -6,7 +6,25 @@ public class GoodsFindReqForm {
     private String name;
     private String kind;
     private Integer pageSize;
-    private Integer pageNum;
+    private Integer pageNo;
+    private Integer start;
+    private Integer end;
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getEnd() {
+        return end;
+    }
+
+    public void setEnd(Integer end) {
+        this.end = end;
+    }
 
     public Integer getPageSize() {
         return pageSize;
@@ -16,12 +34,12 @@ public class GoodsFindReqForm {
         this.pageSize = pageSize;
     }
 
-    public Integer getPageNum() {
-        return pageNum;
+    public Integer getPageNo() {
+        return pageNo;
     }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
     }
 
     public Long getId() {
