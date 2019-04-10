@@ -33,17 +33,25 @@ public class GoodsController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public PageInfo<Goods> findByConditions(@RequestBody GoodsFindReqForm reqForm){
 
+        Integer pageSize = reqForm.getPageSize();
+        Integer pageNo = reqForm.getPageNo();
+
         if("".equals(reqForm.getKind())){
             reqForm.setKind(null);
         }
 
+        if(pageNo == null || pageNo <= 0){
+            reqForm.setPageNo(1);
+        }
+
         List<Goods> goods = goodsService.findByConditions(reqForm);
-        PageInfo<Goods> page = new PageInfo<>(goods);
         Long total = goodsService.getTotal(reqForm);
-        Integer pageSize = reqForm.getPageSize();
-        Integer pageNo = reqForm.getPageNo();
-        Long totalPage = total/pageSize + 1;
-        if(totalPage > pageNo) {
+
+        PageInfo<Goods> page = new PageInfo<>(goods);
+
+        Long totalPage = total%pageSize == 0 ? total/pageSize : total/pageSize + 1;
+
+        if(pageNo != null && pageNo < totalPage) {
             page.setHasNextPage(true);
         }
         page.setTotal(goods.size());

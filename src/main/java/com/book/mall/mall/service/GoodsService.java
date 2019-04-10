@@ -32,8 +32,14 @@ public class GoodsService {
         reqForm.setStart(start);
         reqForm.setEnd(end);
 
+        List<Goods> goods = goodsMapper.findByConditions(reqForm);
 
-        return goodsMapper.findByConditions(reqForm);
+        for(Goods good : goods) {
+            String time = DateUtil.formatDate(Long.parseLong(good.getCreateTime()));
+            good.setCreateTime(time);
+        }
+
+        return goods;
     }
 
     public Goods getById(Long id) {
