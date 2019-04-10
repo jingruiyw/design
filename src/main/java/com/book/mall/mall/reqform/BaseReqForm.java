@@ -2,7 +2,7 @@ package com.book.mall.mall.reqform;
 
 public class BaseReqForm {
 
-    private Integer pageSize = 1000;
+    private Integer pageSize = 10;
     private Integer pageNo = 1;
     private Integer start = 1000;
     private Integer end = 1;
