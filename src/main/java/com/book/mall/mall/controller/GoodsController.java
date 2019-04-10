@@ -46,7 +46,7 @@ public class GoodsController {
 
         List<Goods> goods = goodsService.findByConditions(reqForm);
         Long total = goodsService.getTotal(reqForm);
-        Long totalPage = total%pageSize == 0 ? total/pageSize : total/pageSize + 1;
+        Long totalPage = total % pageSize == 0 ? total/pageSize : total/pageSize + 1;
 
         PageInfo<Goods> page = new PageInfo<>(goods);
         if(pageNo != null && pageNo < totalPage) {

@@ -30,7 +30,7 @@ public class KindController {
 
         List<Kind> kinds = kindService.findAll(reqForm);
         Long total = kindService.getTotal(reqForm);
-        Long totalPage = total%pageSize == 0 ? total/pageSize : total/pageSize + 1;
+        Long totalPage = total % pageSize == 0 ? total/pageSize : total/pageSize + 1;
 
         PageInfo<Kind> pageInfo = new PageInfo<>(kinds);
 
@@ -39,8 +39,8 @@ public class KindController {
         }
 
         pageInfo.setTotal(total);
-        pageInfo.setPageNum(pageNo);
-        pageInfo.setPageSize(pageSize);
+        pageInfo.setPageNum(reqForm.getPageNo());
+        pageInfo.setPageSize(reqForm.getPageSize());
 
         return pageInfo;
     }
