@@ -6,6 +6,7 @@ import com.book.mall.mall.reqform.KindAddReqForm;
 import com.book.mall.mall.reqform.KindFindReqForm;
 import com.book.mall.mall.resbean.KindAddResBean;
 import com.book.mall.mall.resbean.KindDelResBean;
+import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +53,12 @@ public class KindService {
 
         Integer start = reqForm.getPageSize();
         Integer end = (reqForm.getPageNo()-1)*reqForm.getPageSize();
+        List<Kind> kinds = kindMapper.findAll(start, end);
 
-        return kindMapper.findAll(start, end);
+        for(Kind kind : kinds){
+            kind.setCreateTime(DateUtil.formatDate(Long.parseLong(kind.getCreateTime())));
+        }
+        return kinds;
     }
 
     public Long getTotal(KindFindReqForm reqForm){
