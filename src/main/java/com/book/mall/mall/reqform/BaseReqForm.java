@@ -5,7 +5,7 @@ public class BaseReqForm {
     private Integer pageSize = 10;
     private Integer pageNo = 1;
     private Integer start = 100;
-    private Integer end = 1;
+    private Integer end = 0;
 
     public Integer getStart() {
         return start;
