@@ -3,6 +3,7 @@ package com.book.mall.mall.controller;
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.reqform.GoodUpdateReqForm;
 import com.book.mall.mall.reqform.GoodsAddReqForm;
+import com.book.mall.mall.reqform.GoodsDelReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.resbean.GoodsAddResBean;
 import com.book.mall.mall.resbean.GoodsDelResBean;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
@@ -70,8 +71,8 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public GoodsDelResBean delGoods(@Param("id") Long id){
-        return goodsService.delGood(id);
+    public GoodsDelResBean delGoods(@RequestBody GoodsDelReqForm reqForm){
+        return goodsService.delGood(reqForm);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

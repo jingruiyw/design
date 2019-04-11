@@ -4,6 +4,7 @@ import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.reqform.GoodUpdateReqForm;
 import com.book.mall.mall.reqform.GoodsAddReqForm;
+import com.book.mall.mall.reqform.GoodsDelReqForm;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.resbean.GoodsAddResBean;
 import com.book.mall.mall.resbean.GoodsDelResBean;
@@ -91,10 +92,19 @@ public class GoodsService {
         return resBean;
     }
 
-    public GoodsDelResBean delGood(Long id){
+    public GoodsDelResBean delGood(GoodsDelReqForm reqForm){
         GoodsDelResBean resBean = new GoodsDelResBean();
         resBean.setCode(0);
+
+        Long id = reqForm.getId();
+        if(id == null) {
+            resBean.setCode(1);
+            resBean.setMsg("id不能为空");
+            return resBean;
+        }
+
         goodsMapper.delById(id);
+        resBean.setMsg("删除成功");
 
         return resBean;
     }
