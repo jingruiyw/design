@@ -35,16 +35,15 @@ public class GoodsService {
 
         List<Goods> goods = goodsMapper.findByConditions(reqForm);
 
-        for(Goods good : goods) {
-            String time = DateUtil.formatDate(Long.parseLong(good.getCreateTime()));
-            good.setCreateTime(time);
-        }
-
         return goods;
     }
 
     public Goods getById(Long id) {
         Goods goods =  goodsMapper.getById(id);
+
+        if(goods == null) {
+            return goods;
+        }
 
         String createTime = goods.getCreateTime();
         Long time = Long.parseLong(createTime);
@@ -56,14 +55,24 @@ public class GoodsService {
     public GoodsAddResBean addGoods(GoodsAddReqForm reqForm){
         GoodsAddResBean resBean = new GoodsAddResBean();
         resBean.setCode(0);
+        resBean.setMsg("添加成功");
 
         String name = reqForm.getName();
         String kind = reqForm.getKind();
+
+        if(name == null || kind == null){
+            resBean.setCode(1);
+            resBean.setMsg("name 和 kind 必须同时存在");
+            return resBean;
+        }
+
         GoodsFindReqForm req = new GoodsFindReqForm();
         req.setName(name);
         req.setKind(kind);
+        req.setStart(100);
+        req.setEnd(1);
 
-        List<Goods> goods = goodsMapper.findByConditions(req);
+        List<Goods> goods = this.findByConditions(req);
 
         //存在就调用更新方法，把原来的库存更改为传入库存加原来库存
         if(goods.size() != 0){

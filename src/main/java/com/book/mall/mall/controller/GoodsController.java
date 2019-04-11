@@ -9,6 +9,7 @@ import com.book.mall.mall.resbean.GoodsAddResBean;
 import com.book.mall.mall.resbean.GoodsDelResBean;
 import com.book.mall.mall.resbean.GoodsUpdateResBean;
 import com.book.mall.mall.service.GoodsService;
+import com.book.mall.mall.util.DateUtil;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,12 @@ public class GoodsController {
         }
 
         List<Goods> goods = goodsService.findByConditions(reqForm);
+
+        for(Goods good : goods) {
+            String time = DateUtil.formatDate(Long.parseLong(good.getCreateTime()));
+            good.setCreateTime(time);
+        }
+
         Long total = goodsService.getTotal(reqForm);
         Long totalPage = total % pageSize == 0 ? total/pageSize : total/pageSize + 1;
 

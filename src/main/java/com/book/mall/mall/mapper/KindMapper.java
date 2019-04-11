@@ -35,6 +35,6 @@ public interface KindMapper {
     public Kind getByName(@Param("name") String name);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into kind (name, image, createTime) values (#{name}, #{image}, #{createTime})")
+    @Insert("insert into kind (name, image, create_time) values (#{name}, #{image}, #{createTime})")
     public void add(KindAddReqForm reqForm);
 }
