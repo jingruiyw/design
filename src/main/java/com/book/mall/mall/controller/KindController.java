@@ -2,6 +2,7 @@ package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Kind;
 import com.book.mall.mall.reqform.KindAddReqForm;
+import com.book.mall.mall.reqform.KindDelReqForm;
 import com.book.mall.mall.reqform.KindFindReqForm;
 import com.book.mall.mall.resbean.KindAddResBean;
 import com.book.mall.mall.resbean.KindDelResBean;
@@ -23,8 +24,8 @@ public class KindController {
     private KindService kindService;
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public KindDelResBean del(Long id){
-        return kindService.del(id);
+    public KindDelResBean del(@RequestBody KindDelReqForm reqForm){
+        return kindService.del(reqForm.getId());
     }
 
 
