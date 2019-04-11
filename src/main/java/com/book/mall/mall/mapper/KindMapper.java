@@ -26,7 +26,16 @@ public interface KindMapper {
             "</script>")
     public List<Kind> findAll(@Param("start") Integer start,@Param("end") Integer end);
 
+    @Select("<script>" +
+            "select * from kind " +
+            "<where>" +
+            "<bind name= 'name' value= \" '%' + name + '%'\" />" +
+            "<if test='name != null'> AND name like #{name} </if>" +
+            "</where>" +
+            "</script>")
+    public Kind getByName(@Param("name") String name);
+
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into kinds (name, image, createTime) values (#{name}, #{image}, #{createTime)")
-    public KindAddResBean add(KindAddReqForm reqForm);
+    @Insert("insert into kind (name, image, createTime) values (#{name}, #{image}, #{createTime})")
+    public void add(KindAddReqForm reqForm);
 }

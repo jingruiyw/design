@@ -4,7 +4,7 @@ public class KindAddReqForm {
 
     private Long id;
     private String name;
-    private String iamge;
+    private String image;
     private Long createTime;
 
     public Long getId() {
@@ -23,12 +23,12 @@ public class KindAddReqForm {
         this.name = name;
     }
 
-    public String getIamge() {
-        return iamge;
+    public String getImage() {
+        return image;
     }
 
-    public void setIamge(String iamge) {
-        this.iamge = iamge;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Long getCreateTime() {
