@@ -86,6 +86,7 @@ public class GoodsService {
             reqForm.setRemark("");
         }
 
+        reqForm.setStatus("上线中");
         reqForm.setCreateTime(Instant.now().toEpochMilli());
         goodsMapper.addGoods(reqForm);
 
