@@ -3,17 +3,16 @@ package com.book.mall.mall.mapper;
 import com.book.mall.mall.entity.Kind;
 import com.book.mall.mall.reqform.KindAddReqForm;
 import com.book.mall.mall.reqform.KindFindReqForm;
-import com.book.mall.mall.resbean.KindAddResBean;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public interface KindMapper {
+
+    @Delete("delete from kind where id = #{id}")
+    public void del(Long id);
 
     @Select("<script>" +
             "select count(*) from kind " +

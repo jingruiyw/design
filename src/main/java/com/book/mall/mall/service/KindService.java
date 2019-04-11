@@ -5,6 +5,7 @@ import com.book.mall.mall.mapper.KindMapper;
 import com.book.mall.mall.reqform.KindAddReqForm;
 import com.book.mall.mall.reqform.KindFindReqForm;
 import com.book.mall.mall.resbean.KindAddResBean;
+import com.book.mall.mall.resbean.KindDelResBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,21 @@ import java.util.List;
 public class KindService {
     @Autowired
     private KindMapper kindMapper;
+
+    public KindDelResBean del(Long id) {
+        KindDelResBean resBean = new KindDelResBean();
+        resBean.setCode(0);
+
+        if(id == null) {
+            resBean.setCode(1);
+            resBean.setMsg("删除失败");
+            return resBean;
+        }
+
+        kindMapper.del(id);
+        resBean.setMsg("删除成功");
+        return resBean;
+    }
 
     public KindAddResBean add(KindAddReqForm reqForm) {
         reqForm.setCreateTime(Instant.now().toEpochMilli());

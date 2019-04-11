@@ -4,11 +4,13 @@ import com.book.mall.mall.entity.Kind;
 import com.book.mall.mall.reqform.KindAddReqForm;
 import com.book.mall.mall.reqform.KindFindReqForm;
 import com.book.mall.mall.resbean.KindAddResBean;
+import com.book.mall.mall.resbean.KindDelResBean;
 import com.book.mall.mall.service.KindService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +22,13 @@ public class KindController {
     @Autowired
     private KindService kindService;
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    public KindDelResBean del(Long id){
+        return kindService.del(id);
+    }
+
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public KindAddResBean add(@RequestBody KindAddReqForm reqForm) {
         KindAddResBean resBean = new KindAddResBean();
         if(reqForm.getName() == null || "".equals(reqForm.getName())){
