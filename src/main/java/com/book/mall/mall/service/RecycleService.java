@@ -8,6 +8,7 @@ import com.book.mall.mall.reqform.*;
 import com.book.mall.mall.resbean.RecycleAddResBean;
 import com.book.mall.mall.resbean.RecycleDelResBean;
 import com.book.mall.mall.resbean.RecycleEnsureResBean;
+import com.book.mall.mall.resbean.RecycleFindByUserIdResBean;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,13 @@ public class RecycleService {
     private RecycleMapper recycleMapper;
     @Autowired
     private GoodsMapper goodsMapper;
+
+    public RecycleFindByUserIdResBean findByUserId(Long userId) {
+        RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
+        List<Recycle> recycles = recycleMapper.findByUserId(userId);
+        resBean.setRecycleList(recycles);
+        return resBean;
+    }
 
     public RecycleDelResBean del(RecycleDelReqForm reqForm) {
         RecycleDelResBean resBean = new RecycleDelResBean();

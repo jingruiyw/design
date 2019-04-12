@@ -8,8 +8,10 @@ import com.book.mall.mall.reqform.RecycleFindReqForm;
 import com.book.mall.mall.resbean.RecycleAddResBean;
 import com.book.mall.mall.resbean.RecycleDelResBean;
 import com.book.mall.mall.resbean.RecycleEnsureResBean;
+import com.book.mall.mall.resbean.RecycleFindByUserIdResBean;
 import com.book.mall.mall.service.RecycleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,18 @@ public class RecycleController {
 
     @Autowired
     RecycleService recycleService;
+
+    @RequestMapping(value = "/find/by/user/id", method = RequestMethod.GET)
+    public RecycleFindByUserIdResBean findByUserId(@Param("userId") Long userId) {
+        RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
+
+        if(userId == null) {
+            resBean.setRecycleList(null);
+            return resBean;
+        }
+
+        return recycleService.findByUserId(userId);
+    }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public RecycleDelResBean del(@RequestBody RecycleDelReqForm reqForm) {
@@ -83,6 +97,12 @@ public class RecycleController {
         if(reqForm.getNumber() == null) {
             resBean.setCode(1);
             resBean.setMsg("数量不能为空");
+            return resBean;
+        }
+
+        if(reqForm.getUserId() == null) {
+            resBean.setCode(1);
+            resBean.setMsg("当前用户id不能为空");
             return resBean;
         }
 

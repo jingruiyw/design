@@ -5,6 +5,7 @@ public class RecycleAddReqForm {
     private Long id;
     private String name;
     private Integer number;
+    private Long userId;
     private Long kindId;
     private String kindName;
     private String seller;
@@ -12,6 +13,14 @@ public class RecycleAddReqForm {
     private String address;
     private String status;
     private Long createTime;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;

@@ -2,8 +2,6 @@ package com.book.mall.mall.mapper;
 
 import com.book.mall.mall.entity.Recycle;
 import com.book.mall.mall.reqform.RecycleAddReqForm;
-import com.book.mall.mall.reqform.RecycleDelReqForm;
-import com.book.mall.mall.resbean.RecycleDelResBean;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +9,9 @@ import java.util.List;
 
 @Component
 public interface RecycleMapper {
+
+    @Select("select * from recycle where user_id = #{userId}")
+    public List<Recycle> findByUserId(@Param("userId") Long userId);
 
     @Select("<script>" +
             "select * from recycle " +
