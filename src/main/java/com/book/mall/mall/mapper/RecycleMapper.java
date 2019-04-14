@@ -10,8 +10,8 @@ import java.util.List;
 @Component
 public interface RecycleMapper {
 
-    @Select("select * from recycle where user_id = #{userId}")
-    public List<Recycle> findByUserId(@Param("userId") Long userId);
+    @Select("select * from recycle where open_id = #{openId}")
+    public List<Recycle> findByUserId(@Param("openId") Long openId);
 
     @Select("<script>" +
             "select * from recycle " +

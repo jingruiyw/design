@@ -24,16 +24,16 @@ public class RecycleController {
     @Autowired
     RecycleService recycleService;
 
-    @RequestMapping(value = "/find/by/user/id", method = RequestMethod.GET)
-    public RecycleFindByUserIdResBean findByUserId(@Param("userId") Long userId) {
+    @RequestMapping(value = "/find/by/open/id", method = RequestMethod.GET)
+    public RecycleFindByUserIdResBean findByUserId(@Param("openId") Long openId) {
         RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
 
-        if(userId == null) {
+        if(openId == null) {
             resBean.setRecycleList(null);
             return resBean;
         }
 
-        return recycleService.findByUserId(userId);
+        return recycleService.findByUserId(openId);
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)

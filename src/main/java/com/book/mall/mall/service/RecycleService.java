@@ -24,9 +24,9 @@ public class RecycleService {
     @Autowired
     private GoodsMapper goodsMapper;
 
-    public RecycleFindByUserIdResBean findByUserId(Long userId) {
+    public RecycleFindByUserIdResBean findByUserId(Long openId) {
         RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
-        List<Recycle> recycles = recycleMapper.findByUserId(userId);
+        List<Recycle> recycles = recycleMapper.findByUserId(openId);
         resBean.setRecycleList(recycles);
         return resBean;
     }
