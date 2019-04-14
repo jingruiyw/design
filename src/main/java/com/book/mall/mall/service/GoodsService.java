@@ -148,10 +148,7 @@ public class GoodsService {
         }
 
         if(reqForm.getNumber() != null){
-            int num1 = reqForm.getNumber();
-            int num2 = goods.getNumber();
-            int total = num1 + num2;
-            goods.setNumber(total);
+            goods.setNumber(reqForm.getNumber());
         }
 
         if(reqForm.getRemark() != null){
