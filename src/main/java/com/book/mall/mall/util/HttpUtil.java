@@ -12,7 +12,6 @@ import java.util.Map;
 @Component
 public class HttpUtil {
 
-
     public static String postHttpForJson(String url, Map<String, String> params) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
