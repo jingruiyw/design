@@ -36,10 +36,15 @@ public class KindController {
             return resBean;
         }
 
+//        if(reqForm.getImage() == null || "".equals(reqForm.getImage())){
+//            resBean.setCode(1);
+//            resBean.setMsg("图片不能为空");
+//            return resBean;
+//        }
+
+        // todo url之后统一写在前端文件夹
         if(reqForm.getImage() == null || "".equals(reqForm.getImage())){
-            resBean.setCode(1);
-            resBean.setMsg("图片不能为空");
-            return resBean;
+            reqForm.setImage("image url");
         }
         return kindService.add(reqForm);
     }
