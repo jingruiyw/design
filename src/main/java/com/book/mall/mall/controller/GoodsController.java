@@ -25,7 +25,6 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @ResponseBody
     @RequestMapping("/hello")
     public String hello() {
 
