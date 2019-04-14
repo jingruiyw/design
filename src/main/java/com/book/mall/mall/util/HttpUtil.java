@@ -32,7 +32,6 @@ public class HttpUtil {
     public static String getHttpForUrl(String url, Map<String, String> params) {
         RestTemplate template = new RestTemplate();
 
-        String response = template.getForObject(url, String.class, params);
-        return response;
+        return template.getForObject(url, String.class, params);
     }
 }
