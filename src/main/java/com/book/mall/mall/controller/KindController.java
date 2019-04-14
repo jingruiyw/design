@@ -9,13 +9,11 @@ import com.book.mall.mall.resbean.KindDelResBean;
 import com.book.mall.mall.service.KindService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/kind")
 public class KindController {
@@ -46,7 +44,7 @@ public class KindController {
         return kindService.add(reqForm);
     }
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public PageInfo<Kind> list(@RequestBody KindFindReqForm reqForm){
 
         Integer pageNo = reqForm.getPageNo();

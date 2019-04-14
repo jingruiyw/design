@@ -87,6 +87,12 @@ public class GoodsService {
 
         //不存在就添加
         //数量不传就默认是1
+
+        //todo 待定
+        if(reqForm.getImage() == null) {
+            reqForm.setImage("default");
+        }
+
         if(reqForm.getNumber() == null){
             reqForm.setNumber(1);
         }
