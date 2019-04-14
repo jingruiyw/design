@@ -5,6 +5,7 @@ public class Recycle {
     private Long id;
     private String name;
     private Integer number;
+    private String openId;
     private Long kindId;
     private String kindName;
     private String seller;
@@ -12,6 +13,14 @@ public class Recycle {
     private String address;
     private String status;
     private String createTime;
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
 
     public String getStatus() {
         return status;

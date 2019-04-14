@@ -27,6 +27,10 @@ public class RecycleService {
     public RecycleFindByUserIdResBean findByUserId(Long openId) {
         RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
         List<Recycle> recycles = recycleMapper.findByUserId(openId);
+
+        for(Recycle recycle : recycles) {
+            recycle.setCreateTime(DateUtil.formatDate(Long.parseLong(recycle.getCreateTime())));
+        }
         resBean.setRecycleList(recycles);
         return resBean;
     }
