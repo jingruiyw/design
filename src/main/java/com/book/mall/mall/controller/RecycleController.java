@@ -98,9 +98,9 @@ public class RecycleController {
             return resBean;
         }
 
-        if(reqForm.getUserId() == null) {
+        if(reqForm.getopenId() == null) {
             resBean.setCode(1);
-            resBean.setMsg("当前用户id不能为空");
+            resBean.setMsg("关联用户标识不能为空不能为空");
             return resBean;
         }
 
