@@ -72,13 +72,13 @@ public class OrderController {
         List<Goods> goods = goodsService.findByConditions(req);
 
         //判断商品是否存在
-        if(goods == null) {
+        if(goods == null || goods.size() == 0) {
             resBean.setCode(1);
             resBean.setMsg("该商品不存在");
             return resBean;
         }
 
-        //商品存在库存是否充足
+        //商品存在库存是否充足, 此时未修改商品表，确认付款之后，再更改商品表
         Goods good = goods.get(0);
         if(good.getNumber() < reqForm.getNumber()) {
             resBean.setCode(1);
