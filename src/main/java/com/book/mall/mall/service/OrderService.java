@@ -3,7 +3,9 @@ package com.book.mall.mall.service;
 import com.book.mall.mall.entity.Order;
 import com.book.mall.mall.mapper.OrderMapper;
 import com.book.mall.mall.reqform.OrderAddReqForm;
+import com.book.mall.mall.reqform.OrderConfirmReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
+import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,15 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    public OrderConfirmResBean confirm(OrderConfirmReqForm reqForm){
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+        resBean.setCode(0);
+        resBean.setMsg("确认成功");
+
+        orderMapper.confirm(reqForm.getId(), "已付款");
+        return resBean;
+    }
 
     public OrderAddResBean add(OrderAddReqForm reqForm) {
         OrderAddResBean resBean = new OrderAddResBean();

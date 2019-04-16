@@ -6,6 +6,7 @@ import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
 import com.book.mall.mall.reqform.OrderDelReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
+import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
@@ -23,6 +24,12 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     GoodsService goodsService;
+
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    public OrderConfirmResBean confirm() {
+        // todo 确认接口待定
+        return null;
+    }
 
     @RequestMapping("/list")
     public List<Order> findAll() {
