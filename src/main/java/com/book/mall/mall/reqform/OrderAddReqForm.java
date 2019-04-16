@@ -6,9 +6,18 @@ public class OrderAddReqForm {
     private String goodsName;
     private String goodsKind;
     private String status;
-    private Integer number;
-    private Double price;
+    private Integer number = 1;
+    private Double price = 10.0;
+    private Double priceTotal;
     private Long createTime;
+
+    public Double getPriceTotal() {
+        return priceTotal;
+    }
+
+    public void setPriceTotal(Double priceTotal) {
+        this.priceTotal = priceTotal;
+    }
 
     public Long getCreateTime() {
         return createTime;

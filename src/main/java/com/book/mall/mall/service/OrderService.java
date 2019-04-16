@@ -23,10 +23,11 @@ public class OrderService {
         resBean.setCode(0);
         resBean.setMsg("添加成功");
 
-        //todo 添加方法暂存
+        reqForm.setStatus("未付款");
+        reqForm.setPriceTotal(reqForm.getPrice()*reqForm.getNumber());
         reqForm.setCreateTime(Instant.now().toEpochMilli());
         orderMapper.add(reqForm);
-        return null;
+        return resBean;
     }
 
     public List<Order> findAll(){

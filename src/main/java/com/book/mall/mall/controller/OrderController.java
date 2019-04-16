@@ -1,8 +1,13 @@
 package com.book.mall.mall.controller;
 
+import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.entity.Order;
+import com.book.mall.mall.reqform.GoodsFindReqForm;
+import com.book.mall.mall.reqform.OrderAddReqForm;
 import com.book.mall.mall.reqform.OrderDelReqForm;
+import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
+import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    GoodsService goodsService;
 
     @RequestMapping("/list")
     public List<Order> findAll() {
@@ -33,5 +40,53 @@ public class OrderController {
         return orderService.del(reqForm.getId());
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public OrderAddResBean add(@RequestBody OrderAddReqForm reqForm) {
+        OrderAddResBean resBean = new OrderAddResBean();
+        resBean.setCode(0);
+        resBean.setMsg("添加成功");
+
+        if(reqForm.getOpenId() == null) {
+            resBean.setCode(1);
+            resBean.setMsg("openId不能为空");
+            return resBean;
+        }
+
+        if(reqForm.getGoodsName() == null) {
+            resBean.setCode(1);
+            resBean.setMsg("商品名称不能为空");
+            return resBean;
+        }
+
+        if(reqForm.getGoodsKind() == null) {
+            resBean.setCode(1);
+            resBean.setMsg("商品种类不能为空");
+            return resBean;
+        }
+
+        String name = reqForm.getGoodsName();
+        String kind = reqForm.getGoodsKind();
+        GoodsFindReqForm req = new GoodsFindReqForm();
+        req.setName(name);
+        req.setKind(kind);
+        List<Goods> goods = goodsService.findByConditions(req);
+
+        //判断商品是否存在
+        if(goods == null) {
+            resBean.setCode(1);
+            resBean.setMsg("该商品不存在");
+            return resBean;
+        }
+
+        //商品存在库存是否充足
+        Goods good = goods.get(0);
+        if(good.getNumber() < reqForm.getNumber()) {
+            resBean.setCode(1);
+            resBean.setMsg("库存不足, 请修改购买数量");
+            return resBean;
+        }
+
+        return orderService.add(reqForm);
+    }
 
 }
