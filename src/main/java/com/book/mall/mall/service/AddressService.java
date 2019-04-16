@@ -8,6 +8,7 @@ import com.book.mall.mall.resbean.AddressResBean;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;
@@ -23,11 +24,20 @@ public class AddressService {
         if(StringUtils.isEmpty(id)) {
             return null;
         }
-        return addressMapper.selectById(id);
+        Address address = addressMapper.selectById(id);
+        if(address != null) {
+            address.setCreateTime(DateUtil.formatDate(Long.parseLong(address.getCreateTime())));
+        }
+        return address;
     }
 
     public List<Address> selectByOpenId(String openId) {
-        return addressMapper.selectList(openId);
+        List<Address> addresses = addressMapper.selectList(openId);
+        if(!CollectionUtils.isEmpty(addresses)) {
+            addresses.forEach(address ->
+                address.setCreateTime(DateUtil.formatDate(Long.parseLong(address.getCreateTime()))));
+        }
+        return addresses;
     }
 
     public AddressResBean addAddress(AddressAddReqForm reqForm) {

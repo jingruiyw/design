@@ -6,6 +6,7 @@ import com.book.mall.mall.reqform.UserAddReqForm;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.util.List;
@@ -17,11 +18,19 @@ public class UserService {
     UserMapper userMapper;
 
     public User getByOpenId(String openId) {
-        return userMapper.selectByOpenId(openId);
+        User user = userMapper.selectByOpenId(openId);
+        if(user != null) {
+            user.setCreateTime(DateUtil.formatDate(Long.parseLong(user.getCreateTime())));
+        }
+        return user;
     }
 
     public List<User> getList() {
-        return userMapper.selectList();
+        List<User> users = userMapper.selectList();
+        if(!CollectionUtils.isEmpty(users)) {
+            users.forEach(user -> user.setCreateTime(DateUtil.formatDate(Long.parseLong(user.getCreateTime()))));
+        }
+        return users;
     }
     public void addUser(UserAddReqForm userAddReqForm) {
         userAddReqForm.setCreateTime(Instant.now().toEpochMilli());
