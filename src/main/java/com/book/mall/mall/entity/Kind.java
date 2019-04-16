@@ -4,7 +4,16 @@ public class Kind {
 
     private Long id;
     private String name;
+    private String image;
     private String createTime;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
