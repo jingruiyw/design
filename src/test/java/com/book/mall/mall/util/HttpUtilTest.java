@@ -1,5 +1,6 @@
 package com.book.mall.mall.util;
 
+import com.supply.util.HttpUtil;
 import org.junit.Test;
 
 import java.util.HashMap;

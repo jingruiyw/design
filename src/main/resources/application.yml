@@ -4,14 +4,14 @@ spring:
     username: root
     password: nideshengri
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bookmall?characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/stusupply?characterEncoding=UTF-8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
 
 wx:
   miniapp:
     configs:
-    - appid: wxb39a7d55e5d5b0f1
+    - appid: wx432ef23a221d8815
       secret: #微信小程序的Secret
       token: #微信小程序消息服务器配置的token
       aesKey: #微信小程序消息服务器配置的EncodingAESKey
