@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
 
-    User getByOpenId(String openId);
+    KkbResponse getByOpenId(String openId);
 
     KkbResponse getList(KkbPage kkbPage);
 

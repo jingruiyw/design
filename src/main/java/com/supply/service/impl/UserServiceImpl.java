@@ -31,10 +31,14 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public User getByOpenId(String openId) {
+    public KkbResponse getByOpenId(String openId) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", openId);
-        return baseMapper.selectOne(queryWrapper);
+        User user = baseMapper.selectOne(queryWrapper);
+        JSONObject jsonObject = (JSONObject) JSON.toJSON(user);
+        jsonObject.remove("createTime");
+        jsonObject.put("createTime", DateUtil.formatDate(user.getCreateTime().longValue()));
+        return new KkbResponse(jsonObject);
     }
 
     @Override
@@ -56,7 +60,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public KkbResponse addUser(DoUser doUser) {
-        User user = this.getByOpenId(doUser.getOpenId());
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("open_id", doUser.getOpenId());
+        User user = baseMapper.selectOne(queryWrapper);
         if(user != null) {
             return new KkbResponse(KkbStatus.DATA_EXIST);
         }

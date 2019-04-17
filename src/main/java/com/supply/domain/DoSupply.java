@@ -1,10 +1,12 @@
-package com.supply.entity;
+package com.supply.domain;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -14,25 +16,24 @@ import java.io.Serializable;
  * @author Deniecece
  * @since 2019-04-16
  */
-public class Supply implements Serializable {
+public class DoSupply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "openId不能为空")
     private String openId;
-
+    @NotBlank(message = "名称不能为空")
     private String name;
 
     /**
      * 商品类型
      */
+    @NotBlank(message = "类型不能为空")
     private String type;
 
     private String image;
-
-    private Integer status;
 
     /**
      * 商品描述
@@ -42,6 +43,7 @@ public class Supply implements Serializable {
     /**
      * 商品价格
      */
+    @NotBlank(message = "价格不能为空")
     private BigDecimal price;
 
     private Integer createTime;
@@ -111,14 +113,6 @@ public class Supply implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getOpenId() {
