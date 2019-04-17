@@ -58,8 +58,21 @@ public class RecycleService {
         List<Goods> goods = goodsMapper.findByConditions(gfr);
 
         if(goods.size() == 0) {
-            resBean.setCode(1);
-            resBean.setMsg("该书籍尚未在商品库添加, 请添加后再确认入库");
+            GoodsAddReqForm req = new GoodsAddReqForm();
+            req.setName(name);
+            req.setKind(kind);
+            req.setImage("/image/goods-default.jpg");
+            req.setStatus("上线中");
+            req.setNumber(reqForm.getNumber());
+            // 默认是10元
+            req.setPrice(10.0);
+            req.setRemark("新书" + name + "上架啦, 欢迎大家前来购买。");
+            req.setCreateTime(Instant.now().toEpochMilli());
+
+            //自动添加未存在图书
+            goodsMapper.addGoods(req);
+            //更改自己的订单状态
+            recycleMapper.updateStatus("已添加", reqForm.getId());
             return resBean;
         }
 
