@@ -24,7 +24,7 @@ public class AddressController {
      * 详情
      */
     @GetMapping("/address/{id}")
-    public Address getDetails(@PathVariable String id) {
+    public Address getDetails(@PathVariable Integer id) {
         return iAddressService.getDetails(id);
     }
 
@@ -33,7 +33,7 @@ public class AddressController {
      */
     @GetMapping("/address/list")
     public List<Address> getList(@RequestParam(name = "openId") String openId) {
-        User user = iUserService.getByOpenId(openId);
+        Object user = iUserService.getByOpenId(openId).getData();
         if(user == null) {
             return null;
         }

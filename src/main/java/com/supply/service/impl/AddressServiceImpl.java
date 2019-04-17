@@ -26,7 +26,7 @@ import java.util.List;
 public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> implements IAddressService {
 
     @Override
-    public Address getDetails(String id) {
+    public Address getDetails(Integer id) {
         return baseMapper.selectById(id);
     }
 

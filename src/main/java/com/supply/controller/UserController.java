@@ -58,7 +58,7 @@ public class UserController {
     /**
      * 新增
      */
-    @PostMapping("/user/add")
+    @PostMapping("/user")
     public KkbResponse addUser(@RequestBody @Valid DoUser doUser) {
         return iUserService.addUser(doUser);
     }

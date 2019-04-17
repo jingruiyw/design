@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface ISupplyService extends IService<Supply> {
 
-    KkbResponse getDetails(String id);
+    KkbResponse getDetails(Integer id);
 
     KkbResponse selectList(KkbPage kkbPage);
 

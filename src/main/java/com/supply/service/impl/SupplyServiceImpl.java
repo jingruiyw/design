@@ -32,7 +32,7 @@ import java.util.Map;
 public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> implements ISupplyService {
 
     @Override
-    public KkbResponse getDetails(String id) {
+    public KkbResponse getDetails(Integer id) {
         Supply supply = baseMapper.selectById(id);
         JSONObject jsonObject = (JSONObject) JSON.toJSON(supply);
         jsonObject.remove("createTime");
@@ -54,6 +54,9 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
             }
             if(condition.containsKey("status")) {
                 queryWrapper.in("status", CollectionUtils.arrayToList(condition.get("status").toString().split(",")));
+            }
+            if(condition.containsKey("openId")) {
+                queryWrapper.eq("open_id", condition.get("openId"));
             }
         }
         List<Supply> supplies = baseMapper.selectList(queryWrapper);

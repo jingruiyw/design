@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface IAddressService extends IService<Address> {
 
-    Address getDetails(String id);
+    Address getDetails(Integer id);
 
     List<Address> selectByOpenId(String openId);
 

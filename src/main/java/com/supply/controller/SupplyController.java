@@ -28,7 +28,7 @@ public class SupplyController {
      * 详情
      */
     @GetMapping("/supply/{id}")
-    public KkbResponse getDetails(@PathVariable String id) {
+    public KkbResponse getDetails(@PathVariable Integer id) {
         return iSupplyService.getDetails(id);
     }
 

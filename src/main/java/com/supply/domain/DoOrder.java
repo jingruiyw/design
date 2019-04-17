@@ -1,7 +1,9 @@
-package com.supply.entity;
+package com.supply.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -12,21 +14,22 @@ import java.io.Serializable;
  * @author Deniecece
  * @since 2019-04-16
  */
-public class Order implements Serializable {
+public class DoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 关联用户表唯一标识
      */
+    @NotBlank(message = "openId不能为空")
     private String openId;
 
     /**
      * 关联商品名称
      */
+    @NotBlank(message = "关联商品不能为空")
     private Integer supplyNo;
 
     /**
