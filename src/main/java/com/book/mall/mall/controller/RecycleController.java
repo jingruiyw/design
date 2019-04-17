@@ -99,15 +99,19 @@ public class RecycleController {
         }
 
         if(reqForm.getopenId() == null) {
-            resBean.setCode(1);
-            resBean.setMsg("关联用户标识不能为空不能为空");
-            return resBean;
+//            resBean.setCode(1);
+////            resBean.setMsg("关联用户标识不能为空");
+////            return resBean;
+            reqForm.setopenId("0");
+
         }
 
+        //暂时不用，设为默认值为0
         if(reqForm.getKindId() == null) {
-            resBean.setCode(1);
-            resBean.setMsg("种类id不能为空");
-            return resBean;
+//            resBean.setCode(1);
+//            resBean.setMsg("种类id不能为空");
+//            return resBean;
+            reqForm.setKindId(0L);
         }
 
         if(reqForm.getKindName() == null) {

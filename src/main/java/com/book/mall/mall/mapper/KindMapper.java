@@ -29,7 +29,7 @@ public interface KindMapper {
             "select * from kind " +
             "<where>" +
             "<bind name= 'name' value= \" '%' + name + '%'\" />" +
-            "<if test='name != null'> AND name like #{name} </if>" +
+            "<if test='name != null'> AND name = #{name} </if>" +
             "</where>" +
             "</script>")
     public Kind getByName(@Param("name") String name);
