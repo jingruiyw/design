@@ -20,6 +20,52 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    public OrderConfirmResBean getGoods(Long id){
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+        resBean.setCode(0);
+        resBean.setMsg("确认成功");
+
+        Order order = orderMapper.getById(id);
+        if(order == null) {
+            resBean.setCode(1);
+            resBean.setMsg("确认失败");
+            return resBean;
+        }
+
+        if(!"已发货".equals(order.getStatus())){
+            resBean.setCode(1);
+            resBean.setMsg("当前状态不能确认收货");
+            return resBean;
+        }
+
+        orderMapper.confirm(id, "确认收货");
+
+        return resBean;
+    }
+
+    public OrderConfirmResBean sendGoods(Long id){
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+
+        resBean.setCode(0);
+        resBean.setMsg("确认成功");
+
+        Order order = orderMapper.getById(id);
+        if(order == null) {
+            resBean.setCode(1);
+            resBean.setMsg("确认失败");
+            return resBean;
+        }
+
+        if(!"已付款".equals(order.getStatus())){
+            resBean.setCode(1);
+            resBean.setMsg("当前状态不能发货");
+            return resBean;
+        }
+        orderMapper.confirm(id, "已发货");
+
+        return resBean;
+    }
+
     public OrderConfirmResBean confirm(OrderConfirmReqForm reqForm){
         OrderConfirmResBean resBean = new OrderConfirmResBean();
         resBean.setCode(0);

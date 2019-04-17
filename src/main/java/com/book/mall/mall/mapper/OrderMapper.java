@@ -10,6 +10,9 @@ import java.util.List;
 @Component
 public interface OrderMapper {
 
+    @Select("select * from order_t where id = #{id}")
+    public Order getById(@Param("id") Long id);
+
     @Select("select * from order_t")
     public List<Order> findAll();
 

@@ -11,6 +11,7 @@ import com.book.mall.mall.resbean.OrderDelResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,30 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     GoodsService goodsService;
+
+    @RequestMapping(value = "/get/goods", method = RequestMethod.GET)
+    public OrderConfirmResBean getGoods(@Param("id") Long id) {
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+        if(id == null) {
+            resBean.setCode(1);
+            resBean.setMsg("id不能为空");
+            return resBean;
+        }
+
+        return orderService.getGoods(id);
+    }
+
+    @RequestMapping(value = "/send/goods", method = RequestMethod.GET)
+    public OrderConfirmResBean sendGoods(@Param("id") Long id) {
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+        if(id == null) {
+            resBean.setCode(1);
+            resBean.setMsg("id不能为空");
+            return resBean;
+        }
+
+        return orderService.sendGoods(id);
+    }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public OrderConfirmResBean confirm() {
