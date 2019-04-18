@@ -11,8 +11,17 @@ public class Recycle {
     private String seller;
     private String mobileNo;
     private String address;
+    private Long isbn;
     private String status;
     private String createTime;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public String getOpenId() {
         return openId;

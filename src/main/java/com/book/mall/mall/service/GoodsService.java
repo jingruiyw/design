@@ -59,16 +59,18 @@ public class GoodsService {
 
         String name = reqForm.getName();
         String kind = reqForm.getKind();
+        Long isbn = reqForm.getIsbn();
 
-        if(name == null || kind == null){
+        if(name == null || kind == null || isbn== null){
             resBean.setCode(1);
-            resBean.setMsg("name 和 kind 必须同时存在");
+            resBean.setMsg("name，kind，isbn不能为空");
             return resBean;
         }
 
         GoodsFindReqForm req = new GoodsFindReqForm();
         req.setName(name);
         req.setKind(kind);
+        req.setIsbn(isbn);
         req.setStart(100);
         req.setEnd(1);
 

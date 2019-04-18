@@ -6,7 +6,16 @@ public class RecycleEnsureReqForm {
     private String name;
     private Integer number;
     private String kindName;
+    private Long isbn;
     private String status;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public String getStatus() {
         return status;

@@ -8,9 +8,18 @@ public class GoodsAddReqForm {
     private Integer number;
     private String kind;
     private String image;
+    private Long isbn;
     private String status;
     private String remark;
     private Long createTime;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public Long getId() {
         return id;

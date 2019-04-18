@@ -9,8 +9,17 @@ public class Goods {
     private String kind;
     private String image;
     private String status;
+    private Long isbn;
     private String remark;
     private String createTime;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public String getKind() {
         return kind;

@@ -51,9 +51,11 @@ public class RecycleService {
 
         String name = reqForm.getName();
         String kind = reqForm.getKindName();
+        Long isbn = reqForm.getIsbn();
         GoodsFindReqForm gfr = new GoodsFindReqForm();
         gfr.setName(name);
         gfr.setKind(kind);
+        gfr.setIsbn(isbn);
 
         List<Goods> goods = goodsMapper.findByConditions(gfr);
 
@@ -61,6 +63,7 @@ public class RecycleService {
             GoodsAddReqForm req = new GoodsAddReqForm();
             req.setName(name);
             req.setKind(kind);
+            req.setIsbn(isbn);
             req.setImage("/image/goods-default.jpg");
             req.setStatus("上线中");
             req.setNumber(reqForm.getNumber());

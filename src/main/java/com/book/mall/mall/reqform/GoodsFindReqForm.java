@@ -5,6 +5,15 @@ public class GoodsFindReqForm extends BaseReqForm{
     private Long id;
     private String name;
     private String kind;
+    private Long isbn;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public Long getId() {
         return id;

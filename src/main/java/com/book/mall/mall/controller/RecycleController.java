@@ -98,11 +98,11 @@ public class RecycleController {
             return resBean;
         }
 
-        if(reqForm.getopenId() == null) {
+        if(reqForm.getOpenId() == null) {
 //            resBean.setCode(1);
 ////            resBean.setMsg("关联用户标识不能为空");
 ////            return resBean;
-            reqForm.setopenId("0");
+            reqForm.setOpenId("0");
 
         }
 

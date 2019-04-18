@@ -8,6 +8,15 @@ public class GoodUpdateReqForm {
     private String image;
     private String status;
     private String remark;
+    private Long isbn;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public Long getId() {
         return id;

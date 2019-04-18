@@ -11,14 +11,24 @@ public class RecycleAddReqForm {
     private String seller;
     private String mobileNo;
     private String address;
+    private Long isbn;
     private String status;
     private Long createTime;
 
-    public String getopenId() {
+
+    public Long getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getOpenId() {
         return openId;
     }
 
-    public void setopenId(String openId) {
+    public void setOpenId(String openId) {
         this.openId = openId;
     }
 
