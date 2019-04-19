@@ -66,7 +66,16 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
             jsonObject.put("createTime", DateUtil.formatDate(supply.getCreateTime().longValue()));
             list.add(jsonObject);
         });
-        kkbPage.setRecords(list);
+        int currentStart = ((int)kkbPage.getCurrent()-1) * (int)kkbPage.getSize();
+        int currentEnd = (int)kkbPage.getCurrent() * (int)kkbPage.getSize();
+        if(currentStart > list.size()) {
+            kkbPage.setRecords(null);
+        } else {
+            kkbPage.setRecords(supplies.size() > (int)kkbPage.getSize() ?
+                    (currentEnd < supplies.size() ? list.subList(currentStart, currentEnd) : list.subList(currentStart, list.size())) :
+                    list);
+        }
+        kkbPage.setTotal(new Long(list.size()));
         return new KkbResponse(kkbPage);
     }
 
@@ -74,6 +83,7 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
     public KkbResponse addSupply(DoSupply doSupply) {
         Supply supply = new Supply();
         BeanUtils.copyProperties(doSupply, supply);
+        supply.setCreateTime(DateUtil.getCurrentTime());
         int result = baseMapper.insert(supply);
         if(result == 1) {
             return new KkbResponse();

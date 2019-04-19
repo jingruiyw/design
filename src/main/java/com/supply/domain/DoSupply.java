@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ public class DoSupply implements Serializable {
     /**
      * 商品价格
      */
-    @NotBlank(message = "价格不能为空")
+    @NotNull(message = "价格不能为空")
     private BigDecimal price;
 
     private Integer createTime;
