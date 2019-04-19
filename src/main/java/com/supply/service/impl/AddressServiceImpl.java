@@ -1,5 +1,7 @@
 package com.supply.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.supply.core.KkbResponse;
 import com.supply.core.KkbStatus;
@@ -11,8 +13,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.supply.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,15 +31,33 @@ import java.util.List;
 public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> implements IAddressService {
 
     @Override
-    public Address getDetails(Integer id) {
-        return baseMapper.selectById(id);
+    public KkbResponse getDetails(Integer id) {
+        Address address = baseMapper.selectById(id);
+        if(address == null) {
+            return new KkbResponse(KkbStatus.NO_DATA);
+        }
+        JSONObject jsonObject = (JSONObject) JSON.toJSON(address);
+        jsonObject.remove("createTime");
+        jsonObject.put("createTime", DateUtil.formatDate(address.getCreateTime().longValue()));
+        return new KkbResponse(jsonObject);
     }
 
     @Override
-    public List<Address> selectByOpenId(String openId) {
+    public KkbResponse selectByOpenId(String openId) {
+        List<Map<String, Object>> list = new ArrayList<>();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", openId);
-        return baseMapper.selectList(queryWrapper);
+        List<Address> addresses = baseMapper.selectList(queryWrapper);
+        if(!CollectionUtils.isEmpty(addresses)) {
+            addresses.forEach(address ->
+            {
+                JSONObject jsonObject = (JSONObject) JSON.toJSON(address);
+                jsonObject.remove("createTime");
+                jsonObject.put("createTime", DateUtil.formatDate(address.getCreateTime().longValue()));
+                list.add(jsonObject);
+            });
+        }
+        return new KkbResponse(list);
     }
 
     @Override
@@ -48,6 +71,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         if(address != null) {
             return new KkbResponse(KkbStatus.DATA_EXIST);
         }
+        address = new Address();
         BeanUtils.copyProperties(doAddress, address);
         address.setCreateTime(DateUtil.getCurrentTime());
         int result = baseMapper.insert(address);
@@ -73,6 +97,10 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
 
     @Override
     public KkbResponse delAddress(String id) {
+        Address address = baseMapper.selectById(id);
+        if(address == null) {
+            return new KkbResponse(KkbStatus.NO_DATA);
+        }
         int result = baseMapper.deleteById(id);
         if(result == 1) {
             return new KkbResponse(KkbStatus.SUCCESS);

@@ -12,9 +12,7 @@ public class DateUtil {
     }
 
     public static String formatDate(Long time) {
-
-        Date date = new Date(time);
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.format(date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(time * 1000));
     }
 }

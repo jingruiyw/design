@@ -1,9 +1,9 @@
 package com.supply.controller;
 
 import com.supply.core.KkbResponse;
-import com.supply.entity.Address;
-import com.supply.entity.User;
+import com.supply.core.KkbStatus;
 import com.supply.domain.DoAddress;
+import com.supply.entity.Address;
 import com.supply.service.IAddressService;
 import com.supply.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AddressController {
      * 详情
      */
     @GetMapping("/address/{id}")
-    public Address getDetails(@PathVariable Integer id) {
+    public KkbResponse getDetails(@PathVariable Integer id) {
         return iAddressService.getDetails(id);
     }
 
@@ -32,7 +32,7 @@ public class AddressController {
      * 列表
      */
     @GetMapping("/address/list")
-    public List<Address> getList(@RequestParam(name = "openId") String openId) {
+    public KkbResponse getList(@RequestParam(name = "openId") String openId) {
         Object user = iUserService.getByOpenId(openId).getData();
         if(user == null) {
             return null;

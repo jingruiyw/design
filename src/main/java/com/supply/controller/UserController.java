@@ -31,8 +31,8 @@ public class UserController {
     /**
      * 列表
      */
-    @GetMapping("/user/list")
-    public KkbResponse getList(KkbPage kkbPage) {
+    @PostMapping("/user/list")
+    public KkbResponse getList(@RequestBody KkbPage kkbPage) {
         return iUserService.getList(kkbPage);
     }
 

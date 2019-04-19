@@ -16,9 +16,9 @@ import java.util.List;
  */
 public interface IAddressService extends IService<Address> {
 
-    Address getDetails(Integer id);
+    KkbResponse getDetails(Integer id);
 
-    List<Address> selectByOpenId(String openId);
+    KkbResponse selectByOpenId(String openId);
 
     KkbResponse addAddress(DoAddress doAddress);
 

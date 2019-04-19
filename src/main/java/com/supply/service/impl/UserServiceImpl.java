@@ -3,6 +3,7 @@ package com.supply.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.supply.core.KkbPage;
 import com.supply.core.KkbResponse;
@@ -35,9 +36,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", openId);
         User user = baseMapper.selectOne(queryWrapper);
-        JSONObject jsonObject = (JSONObject) JSON.toJSON(user);
-        jsonObject.remove("createTime");
-        jsonObject.put("createTime", DateUtil.formatDate(user.getCreateTime().longValue()));
+        JSONObject jsonObject = new JSONObject();
+        if(user != null) {
+            jsonObject = (JSONObject) JSON.toJSON(user);
+            jsonObject.remove("createTime");
+            jsonObject.put("createTime", DateUtil.formatDate(user.getCreateTime().longValue()));
+        }
         return new KkbResponse(jsonObject);
     }
 
@@ -48,14 +52,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(kkbPage.getCondition().containsKey("name")) {
             queryWrapper.like("name", kkbPage.getCondition().get("name"));
         }
-        List<User> users = baseMapper.selectPage(kkbPage, queryWrapper).getRecords();
+        List<User> users = baseMapper.selectList(queryWrapper);
         users.forEach(user -> {
             JSONObject jsonObject = (JSONObject) JSON.toJSON(user);
             jsonObject.remove("createTime");
             jsonObject.put("createTime", DateUtil.formatDate(user.getCreateTime().longValue()));
             list.add(jsonObject);
         });
-        return new KkbResponse(list);
+        int currentStart = ((int)kkbPage.getCurrent()-1) * (int)kkbPage.getSize();
+        int currentEnd = (int)kkbPage.getCurrent() * (int)kkbPage.getSize();
+        if(currentStart > list.size()) {
+            kkbPage.setRecords(null);
+        } else {
+            kkbPage.setRecords(users.size() > (int)kkbPage.getSize() ?
+                    (currentEnd < users.size() ? list.subList(currentStart, currentEnd) : list.subList(currentStart, list.size())) :
+                    list);
+        }
+        kkbPage.setTotal(new Long(list.size()));
+        return new KkbResponse(kkbPage);
     }
 
     @Override
