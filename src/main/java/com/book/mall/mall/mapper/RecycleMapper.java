@@ -23,7 +23,7 @@ public interface RecycleMapper {
     public List<Recycle> findAll(@Param("start") Integer start, @Param("end") Integer end);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into recycle (name, number, open_id, kind_id, kind_name, seller, mobile_no, address, status, isbn, create_time) values (#{name}, #{number}, #{openId}, #{kindId}, #{kindName}, #{seller}, #{mobileNo}, #{address}, #{status}, isbn = #{isbn}, #{createTime})")
+    @Insert("insert into recycle (name, number, open_id, kind_id, kind_name, seller, mobile_no, address, status, isbn, create_time) values (#{name}, #{number}, #{openId}, #{kindId}, #{kindName}, #{seller}, #{mobileNo}, #{address}, #{status}, #{isbn}, #{createTime})")
     public void add(RecycleAddReqForm reqForm);
 
     @Update("update recycle set status = #{status} where id = #{id}")
