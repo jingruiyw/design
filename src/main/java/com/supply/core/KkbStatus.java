@@ -23,6 +23,8 @@ public enum KkbStatus implements KkbWebStatus {
      *  数据已存在
      */
     DATA_EXIST(3, "数据已存在"),
+
+    SALED(4, "该商品已出售"),
     /**
      *  验证码无效
      */

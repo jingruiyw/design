@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -29,7 +31,7 @@ public class DoOrder implements Serializable {
     /**
      * 关联商品名称
      */
-    @NotBlank(message = "关联商品不能为空")
+    @NotNull(message = "关联商品不能为空")
     private Integer supplyNo;
 
     /**
@@ -40,7 +42,7 @@ public class DoOrder implements Serializable {
     /**
      * 商品总价
      */
-    private Double price;
+    private BigDecimal price;
 
     /**
      * 创建时间
@@ -80,11 +82,11 @@ public class DoOrder implements Serializable {
         this.status = status;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

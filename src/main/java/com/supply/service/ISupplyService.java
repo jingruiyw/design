@@ -30,4 +30,6 @@ public interface ISupplyService extends IService<Supply> {
     KkbResponse delSupply(String id);
 
     KkbResponse getNewSupply();
+
+    boolean updateStatus(Integer id);
 }

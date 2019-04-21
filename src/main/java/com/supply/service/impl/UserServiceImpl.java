@@ -80,6 +80,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(user != null) {
             return new KkbResponse(KkbStatus.DATA_EXIST);
         }
+        user = new User();
         BeanUtils.copyProperties(doUser, user);
         user.setCreateTime(DateUtil.getCurrentTime());
         int result = baseMapper.insert(user);

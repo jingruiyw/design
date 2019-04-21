@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 public class DoUser {
 
-    private Long id;
+    private Integer id;
     @NotBlank(message = "openId不能为空")
     private String openId;
     @NotBlank(message = "名称不能为空")
@@ -45,11 +45,11 @@ public class DoUser {
         this.createTime = createTime;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

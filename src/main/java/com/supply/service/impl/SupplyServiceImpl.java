@@ -14,6 +14,7 @@ import com.supply.service.ISupplyService;
 import com.supply.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -132,5 +133,20 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
             data.add(jsonObject);
         });
         return new KkbResponse(data);
+    }
+
+    @Override
+    @Transactional
+    public boolean updateStatus(Integer id) {
+        Supply supply = baseMapper.selectById(id);
+        if(supply == null) {
+            return false;
+        }
+        supply.setStatus(1);
+        int result = baseMapper.updateById(supply);
+        if(result == 1) {
+            return true;
+        }
+        return false;
     }
 }

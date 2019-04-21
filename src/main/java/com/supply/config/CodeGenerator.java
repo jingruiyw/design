@@ -37,7 +37,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         // 谨记修改输出目录
-        String projectPath = "/Users/supply";
+        String projectPath = "/Users/kkb/supply";
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("Deniecece");
         gc.setOpen(true);

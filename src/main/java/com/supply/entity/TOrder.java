@@ -1,5 +1,6 @@
 package com.supply.entity;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -10,9 +11,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author Deniecece
- * @since 2019-04-16
+ * @since 2019-04-20
  */
-public class Order implements Serializable {
+public class TOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +38,7 @@ public class Order implements Serializable {
     /**
      * 商品总价
      */
-    private Double price;
+    private BigDecimal price;
 
     /**
      * 创建时间
@@ -77,11 +78,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -95,7 +96,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "TOrder{" +
         "id=" + id +
         ", openId=" + openId +
         ", supplyNo=" + supplyNo +

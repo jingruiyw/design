@@ -67,7 +67,7 @@ public class OrderController {
      * 删除
      */
     @DeleteMapping("/order/{id}")
-    public KkbResponse delOrder(@PathVariable String id){
+    public KkbResponse delOrder(@PathVariable Integer id){
         return iOrderService.delOrder(id);
     }
 }
