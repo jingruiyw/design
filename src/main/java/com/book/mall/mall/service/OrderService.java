@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -132,28 +133,39 @@ public class OrderService {
         return resBean;
     }
 
-//    public OrderListResBean findAll(String openId){
-//        OrderListResBean resBean = new OrderListResBean();
-//
+    public OrderListResBean findAll(String openId){
+        OrderListResBean resBean = new OrderListResBean();
+
+        List<Order> orders = orderMapper.findAll();
+        List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
+
+        for(Order order : orders) {
+            OrderListResBean.OrderEntity entity = new OrderListResBean.OrderEntity();
+            entity.setId(order.getId());
+            entity.setOpenId(openId);
+            entity.setGoodsName(order.getGoodsName());
+            entity.setGoodsKind(order.getGoodsKind());
+            entity.setStatus(order.getStatus());
+            entity.setNumber(order.getNumber());
+            entity.setPrice(order.getPrice());
+            entity.setPriceTotal(order.getPriceTotal());
+            entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            entity.setUserName(userMapper.selectByOpenId(openId).getName());
+            entity.setAddress(addressMapper.selectById(order.getAdressId().toString()).getAddress());
+            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            entityList.add(entity);
+        }
+        resBean.setOrderList(entityList);
+        return resBean;
+    }
+
+//    public List<Order> findAll(){
 //        List<Order> orders = orderMapper.findAll();
-//        User user = userMapper.selectByOpenId(openId);
-//        addressMapper.selectById()
 //        for(Order order : orders) {
 //            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
 //        }
-//
-//        resBean.setUserName(user.getName());
-//
-//        return resBean;
+//        return orders;
 //    }
-
-    public List<Order> findAll(){
-        List<Order> orders = orderMapper.findAll();
-        for(Order order : orders) {
-            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
-        }
-        return orders;
-    }
 
     public OrderDelResBean del(Long id) {
         OrderDelResBean resBean = new OrderDelResBean();

@@ -86,15 +86,15 @@ public class OrderController {
         return resBean;
     }
 
-//    @RequestMapping("/list")
-//    public OrderListResBean findAll(@Param("openId") String openId) {
-//        return orderService.findAll(openId);
-//    }
-
     @RequestMapping("/list")
-    public List<Order> findAll() {
-        return orderService.findAll();
+    public OrderListResBean findAll(@Param("openId") String openId) {
+        return orderService.findAll(openId);
     }
+
+//    @RequestMapping("/list")
+//    public List<Order> findAll() {
+//        return orderService.findAll();
+//    }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public OrderDelResBean del(@RequestBody OrderDelReqForm reqForm) {
