@@ -4,16 +4,22 @@ import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.entity.Order;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
+import com.book.mall.mall.reqform.OrderConfirmReqForm;
 import com.book.mall.mall.reqform.OrderDelReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
+import com.sun.org.apache.regexp.internal.RE;
+import jdk.nashorn.internal.ir.BreakableNode;
+import jdk.nashorn.internal.ir.ContinueNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -51,9 +57,32 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    public OrderConfirmResBean confirm() {
-        // todo 确认接口待定
-        return null;
+    public OrderConfirmResBean confirm(@RequestBody @Valid OrderConfirmReqForm reqForm) {
+        OrderConfirmResBean resBean = new OrderConfirmResBean();
+        resBean.setCode(0);
+        resBean.setMsg("购买成功");
+
+        List<Long> idList = reqForm.getIdList();
+        if(idList == null || idList.size() == 0) {
+            resBean.setCode(1);
+            resBean.setMsg("id不能为空");
+            return resBean;
+        }
+
+        List<OrderConfirmResBean> resBeanList = new ArrayList<>();
+        idList.forEach(id -> {
+            resBeanList.add(orderService.confirm(id));
+        });
+
+        resBeanList.forEach(res -> {
+            if(res.getCode() == 0) {
+                return;
+            }
+            resBean.setCode(1);
+            resBean.setMsg("商品" + res.getId() + "未结算成功，请刷新后重新结算");
+            return;
+        });
+        return resBean;
     }
 
     @RequestMapping("/list")
@@ -107,14 +136,6 @@ public class OrderController {
         if(goods == null || goods.size() == 0) {
             resBean.setCode(1);
             resBean.setMsg("该商品不存在");
-            return resBean;
-        }
-
-        //商品存在库存是否充足, 此时未修改商品表，确认付款之后，再更改商品表
-        Goods good = goods.get(0);
-        if(good.getNumber() < reqForm.getNumber()) {
-            resBean.setCode(1);
-            resBean.setMsg("库存不足, 请修改购买数量");
             return resBean;
         }
 

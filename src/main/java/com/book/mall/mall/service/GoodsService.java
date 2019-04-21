@@ -22,6 +22,10 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
+    public int changeNum(Integer number, Long id){
+        return goodsMapper.changeNum(number, id);
+    }
+
     public Long getTotal(GoodsFindReqForm reqForm){
         return goodsMapper.getTotal(reqForm);
     }
@@ -33,9 +37,7 @@ public class GoodsService {
         reqForm.setStart(start);
         reqForm.setEnd(end);
 
-        List<Goods> goods = goodsMapper.findByConditions(reqForm);
-
-        return goods;
+        return goodsMapper.findByConditions(reqForm);
     }
 
     public Goods getById(Long id) {

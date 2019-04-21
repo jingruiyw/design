@@ -1,9 +1,11 @@
 package com.book.mall.mall.service;
 
+import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.entity.Order;
+import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.mapper.OrderMapper;
+import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
-import com.book.mall.mall.reqform.OrderConfirmReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
@@ -19,6 +21,12 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private GoodsMapper goodsMapper;
+
+    public Order getById(Long id){
+        return orderMapper.getById(id);
+    }
 
     public OrderConfirmResBean getGoods(Long id){
         OrderConfirmResBean resBean = new OrderConfirmResBean();
@@ -66,12 +74,41 @@ public class OrderService {
         return resBean;
     }
 
-    public OrderConfirmResBean confirm(OrderConfirmReqForm reqForm){
+    public OrderConfirmResBean confirm(Long id){
         OrderConfirmResBean resBean = new OrderConfirmResBean();
         resBean.setCode(0);
         resBean.setMsg("确认成功");
 
-        orderMapper.confirm(reqForm.getId(), "已付款");
+        Order order = orderMapper.getById(id);
+        resBean.setId(order.getId());
+
+        String name = order.getGoodsName();
+        String kind = order.getGoodsKind();
+        GoodsFindReqForm req = new GoodsFindReqForm();
+        req.setName(name);
+        req.setKind(kind);
+        List<Goods> goods = goodsMapper.findByConditions(req);
+
+        //判断商品是否存在
+        if(goods == null || goods.size() == 0) {
+            resBean.setCode(1);
+            resBean.setMsg("该商品不存在");
+            return resBean;
+        }
+
+        //商品存在库存是否充足
+        Goods good = goods.get(0);
+        if(good.getNumber() < order.getNumber()) {
+            resBean.setCode(1);
+            resBean.setMsg("库存不足, 请修改购买数量");
+            return resBean;
+        }
+
+        //修改商品的库存
+        Integer newNum = good.getNumber() - order.getNumber();
+        goodsMapper.changeNum(newNum, good.getId());
+        orderMapper.confirm(id, "已付款");
+
         return resBean;
     }
 

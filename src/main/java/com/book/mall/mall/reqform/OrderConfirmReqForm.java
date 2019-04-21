@@ -1,14 +1,17 @@
 package com.book.mall.mall.reqform;
 
+
+import java.util.List;
+
 public class OrderConfirmReqForm {
 
-    private Long id;
+    private List<Long> idList;
 
-    public Long getId() {
-        return id;
+    public List<Long> getIdList() {
+        return idList;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
     }
 }
