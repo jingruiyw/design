@@ -43,7 +43,7 @@ public class AddressController {
     /**
      * 添加
      */
-    @PostMapping("/address/add")
+    @RequestMapping(value = "/address/add", method = RequestMethod.POST)
     public AddressResBean addAddress(@RequestBody @Valid AddressAddReqForm reqForm){
         return addressService.addAddress(reqForm);
     }
