@@ -14,7 +14,7 @@ public interface OrderMapper {
     public Order getById(@Param("id") Long id);
 
     @Select("select * from order_t where status like #{status} and open_id = #{openId}")
-    public List<Order> findAll(String openId, String status);
+    public List<Order> findAll(@Param("openId") String openId, @Param("status") String status);
 
     @Delete("delete from order_t where id = #{id}")
     public void del(@Param("id") Long id);

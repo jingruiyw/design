@@ -12,9 +12,10 @@ import java.util.List;
 public interface AddressMapper {
 
     @Select("SELECT * FROM address WHERE id = #{id}")
-    Address selectById(@Param("id") String id);
+    Address selectById(@Param("id") Long id);
 
-    @Select("SELECT * FROM address RIGHT JOIN user ON address.open_id = user.open_id WHERE user.open_id = #{openId} ORDER BY address.create_time DESC")
+//    @Select("SELECT * FROM address RIGHT JOIN user ON address.open_id = user.open_id WHERE user.open_id = #{openId} ORDER BY address.create_time DESC")
+    @Select("SELECT * FROM address WHERE open_id = #{openId} ORDER BY address.create_time DESC")
     List<Address> selectList(@Param("openId") String openId);
 
     @Select("SELECT count(*) FROM address RIGHT JOIN user ON address.open_id = user.open_id WHERE user.open_id = #{openId}")
@@ -31,6 +32,6 @@ public interface AddressMapper {
     int updateAddress(AddressUpdateReqForm addressUpdateReqForm);
 
     @Delete("DELETE FROM address WHERE id=#{id}")
-    int delAddress(@Param("id") String id);
+    int delAddress(@Param("id") Long id);
 
 }

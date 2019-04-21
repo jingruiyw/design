@@ -13,11 +13,11 @@ public class Order {
     private Double priceTotal;
     private String createTime;
 
-    public Long getAdressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAdressId(Long adressId) {
+    public void setAddressId(Long adressId) {
         this.addressId = adressId;
     }
 

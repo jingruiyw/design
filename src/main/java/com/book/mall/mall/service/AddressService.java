@@ -20,7 +20,7 @@ public class AddressService {
     @Autowired
     AddressMapper addressMapper;
 
-    public Address getDetails(String id) {
+    public Address getDetails(Long id) {
         if(StringUtils.isEmpty(id)) {
             return null;
         }
@@ -55,7 +55,7 @@ public class AddressService {
     }
 
     public AddressResBean updateAddress(AddressUpdateReqForm reqForm) {
-        Address address = this.getDetails(reqForm.getId());
+        Address address = this.getDetails(Long.parseLong(reqForm.getId()));
         if(address != null) {
             int result = addressMapper.updateAddress(reqForm);
             if(result == 1) {
@@ -66,7 +66,7 @@ public class AddressService {
         return new AddressResBean(4, "该地址不存在");
     }
 
-    public AddressResBean delAddress(String id) {
+    public AddressResBean delAddress(Long id) {
         Address address = this.getDetails(id);
         if(address != null) {
             int result = addressMapper.delAddress(id);

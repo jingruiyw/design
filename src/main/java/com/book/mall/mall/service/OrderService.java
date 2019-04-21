@@ -55,7 +55,7 @@ public class OrderService {
             return resBean;
         }
 
-        orderMapper.confirm(id, "确认收货", order.getAdressId());
+        orderMapper.confirm(id, "确认收货", order.getAddressId());
 
         return resBean;
     }
@@ -78,7 +78,7 @@ public class OrderService {
             resBean.setMsg("当前状态不能发货");
             return resBean;
         }
-        orderMapper.confirm(id, "已发货", order.getAdressId());
+        orderMapper.confirm(id, "已发货", order.getAddressId());
 
         return resBean;
     }
@@ -161,7 +161,7 @@ public class OrderService {
             entity.setPriceTotal(order.getPriceTotal());
             entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
             entity.setUserName(userMapper.selectByOpenId(openId).getName());
-            entity.setAddress(addressMapper.selectById(order.getAdressId().toString()).getAddress());
+            entity.setAddress(addressMapper.selectById(order.getAddressId()).getAddress());
             order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
             entityList.add(entity);
         }
@@ -185,7 +185,7 @@ public class OrderService {
             entity.setPrice(order.getPrice());
             entity.setPriceTotal(order.getPriceTotal());
             entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
-            Address address = addressMapper.selectById(order.getAdressId().toString());
+            Address address = addressMapper.selectById(order.getAddressId());
             entity.setAddress(address.getAddress());
             entity.setUserName(address.getName());
             order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));

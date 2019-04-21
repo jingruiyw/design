@@ -1,8 +1,8 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Address;
-import com.book.mall.mall.entity.User;
 import com.book.mall.mall.reqform.AddressAddReqForm;
+import com.book.mall.mall.reqform.AddressDelReqForm;
 import com.book.mall.mall.reqform.AddressUpdateReqForm;
 import com.book.mall.mall.resbean.AddressResBean;
 import com.book.mall.mall.service.AddressService;
@@ -25,7 +25,7 @@ public class AddressController {
      * 详情
      */
     @GetMapping("/address/{id}")
-    public Address getDetails(@PathVariable String id) {
+    public Address getDetails(@PathVariable Long id) {
         return addressService.getDetails(id);
     }
 
@@ -34,10 +34,10 @@ public class AddressController {
      */
     @GetMapping("/address/list")
     public List<Address> getList(@RequestParam(name = "openId") String openId) {
-        User user = userService.getByOpenId(openId);
-        if(user == null) {
-            return null;
-        }
+//        User user = userService.getByOpenId(openId);
+//        if(user == null) {
+//            return null;
+//        }
         return addressService.selectByOpenId(openId);
     }
     /**
@@ -59,8 +59,14 @@ public class AddressController {
     /**
      * 删除
      */
-    @DeleteMapping("/address/{id}")
-    public AddressResBean delAddress(@PathVariable String id){
-        return addressService.delAddress(id);
+
+    @RequestMapping(value = "/address/del", method = RequestMethod.POST)
+    public AddressResBean delAddress(@RequestBody AddressDelReqForm reqForm){
+        return addressService.delAddress(reqForm.getId());
     }
+
+//    @RequestMapping(value = "/address/del", method = RequestMethod.POST)
+//    public AddressResBean delAddress(@Param("id") String id){
+//        return addressService.delAddress(id);
+//    }
 }
