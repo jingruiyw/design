@@ -1,7 +1,6 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Goods;
-import com.book.mall.mall.entity.Order;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
 import com.book.mall.mall.reqform.OrderConfirmReqForm;
@@ -12,11 +11,10 @@ import com.book.mall.mall.resbean.OrderDelResBean;
 import com.book.mall.mall.resbean.OrderListResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
-import com.sun.org.apache.regexp.internal.RE;
-import jdk.nashorn.internal.ir.BreakableNode;
-import jdk.nashorn.internal.ir.ContinueNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,6 +55,7 @@ public class OrderController {
         return orderService.sendGoods(id);
     }
 
+    @Transactional
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public OrderConfirmResBean confirm(@RequestBody @Valid OrderConfirmReqForm reqForm) {
         OrderConfirmResBean resBean = new OrderConfirmResBean();
@@ -75,17 +74,22 @@ public class OrderController {
             resBeanList.add(orderService.confirm(id));
         });
 
-        resBeanList.forEach(res -> {
-            if(res.getCode() == 0) {
-                return;
-            }
-            resBean.setCode(1);
-            resBean.setMsg("商品" + res.getId() + "未结算成功，请刷新后重新结算");
-            return;
-        });
+        try{
+            resBeanList.forEach(res -> {
+                if(res.getCode() != 0) {
+                    resBean.setCode(res.getCode());
+                    resBean.setMsg("商品" + res.getId() + res.getMsg());
+                    resBean.setId(res.getId());
+                    throw new RuntimeException(resBean.getMsg() + "抛异常了");
+                }
+            });
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return resBean;
+        }
         return resBean;
     }
-
     @RequestMapping("/list/openId")
     public OrderListResBean findAll(@Param("openId") String openId) {
         return orderService.findAll(openId);

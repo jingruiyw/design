@@ -89,6 +89,7 @@ public class OrderService {
         resBean.setMsg("确认成功");
 
         Order order = orderMapper.getById(id);
+
         resBean.setId(order.getId());
 
         String name = order.getGoodsName();
@@ -101,6 +102,7 @@ public class OrderService {
         //判断商品是否存在
         if(goods == null || goods.size() == 0) {
             resBean.setCode(1);
+            resBean.setId(id);
             resBean.setMsg("该商品不存在");
             return resBean;
         }
@@ -109,7 +111,15 @@ public class OrderService {
         Goods good = goods.get(0);
         if(good.getNumber() < order.getNumber()) {
             resBean.setCode(1);
-            resBean.setMsg("库存不足, 请修改购买数量");
+            resBean.setId(id);
+            resBean.setMsg("库存为: <" + good.getNumber() + ">库存不足, 请修改购买数量");
+            return resBean;
+        }
+
+        if(!"未付款".equals(order.getStatus())) {
+            resBean.setCode(1);
+            resBean.setId(id);
+            resBean.setMsg( ": <" + order.getStatus() +">状态不能付款");
             return resBean;
         }
 
