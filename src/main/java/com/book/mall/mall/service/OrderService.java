@@ -55,7 +55,7 @@ public class OrderService {
             return resBean;
         }
 
-        orderMapper.confirm(id, "确认收货", order.getAddressId());
+        orderMapper.confirm(id, "已完成", order.getAddressId());
 
         return resBean;
     }
