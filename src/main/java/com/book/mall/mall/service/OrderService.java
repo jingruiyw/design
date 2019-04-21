@@ -143,10 +143,10 @@ public class OrderService {
         return resBean;
     }
 
-    public OrderListResBean findAll(String openId){
+    public OrderListResBean findAll(String openId, String status){
         OrderListResBean resBean = new OrderListResBean();
 
-        List<Order> orders = orderMapper.findAll();
+        List<Order> orders = orderMapper.findAll(openId, status);
         List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
 
         for(Order order : orders) {
@@ -171,7 +171,7 @@ public class OrderService {
 
     public OrderListResBean find(){
         OrderListResBean resBean = new OrderListResBean();
-        List<Order> orders = orderMapper.findAll();
+        List<Order> orders = orderMapper.findAll("","");
         List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
 
         for(Order order : orders) {

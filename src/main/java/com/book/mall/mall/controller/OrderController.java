@@ -1,10 +1,7 @@
 package com.book.mall.mall.controller;
 
 import com.book.mall.mall.entity.Goods;
-import com.book.mall.mall.reqform.GoodsFindReqForm;
-import com.book.mall.mall.reqform.OrderAddReqForm;
-import com.book.mall.mall.reqform.OrderConfirmReqForm;
-import com.book.mall.mall.reqform.OrderDelReqForm;
+import com.book.mall.mall.reqform.*;
 import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
@@ -91,8 +88,12 @@ public class OrderController {
         return resBean;
     }
     @RequestMapping("/list/openId")
-    public OrderListResBean findAll(@Param("openId") String openId) {
-        return orderService.findAll(openId);
+    public OrderListResBean findAll(@Param("openId") String openId, @Param("status") String status) {
+
+        if(status == null) {
+            status = "";
+        }
+        return orderService.findAll(openId, status);
     }
 
     @RequestMapping("/list")
@@ -100,9 +101,24 @@ public class OrderController {
         return orderService.find();
     }
 
+    @RequestMapping(value = "/del/batch", method = RequestMethod.POST)
+    public OrderDelResBean delBatch(@RequestBody OrderDelBatchReqForm reqForm) {
+        OrderDelResBean resBean = new OrderDelResBean();
+        resBean.setCode(0);
+        resBean.setMsg("删除成功");
+        List<Long> idList = reqForm.getIdList();
+
+        idList.forEach(id -> {
+            orderService.del(id);
+        });
+
+        return resBean;
+    }
+
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public OrderDelResBean del(@RequestBody OrderDelReqForm reqForm) {
         OrderDelResBean resBean = new OrderDelResBean();
+
         if (reqForm.getId() == null) {
             resBean.setCode(1);
             resBean.setMsg("id不能为空");

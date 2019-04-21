@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class AddressController {
 
@@ -43,7 +43,7 @@ public class AddressController {
     /**
      * 添加
      */
-    @PostMapping("/address")
+    @PostMapping("/address/add")
     public AddressResBean addAddress(@RequestBody @Valid AddressAddReqForm reqForm){
         return addressService.addAddress(reqForm);
     }

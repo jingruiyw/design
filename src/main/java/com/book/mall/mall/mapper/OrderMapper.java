@@ -13,8 +13,8 @@ public interface OrderMapper {
     @Select("select * from order_t where id = #{id}")
     public Order getById(@Param("id") Long id);
 
-    @Select("select * from order_t")
-    public List<Order> findAll();
+    @Select("select * from order_t where status like #{status} and open_id = #{openId}")
+    public List<Order> findAll(String openId, String status);
 
     @Delete("delete from order_t where id = #{id}")
     public void del(@Param("id") Long id);
