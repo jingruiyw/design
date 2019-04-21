@@ -1,8 +1,8 @@
 package com.book.mall.mall.service;
 
+import com.book.mall.mall.entity.Address;
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.entity.Order;
-import com.book.mall.mall.entity.User;
 import com.book.mall.mall.mapper.AddressMapper;
 import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.mapper.OrderMapper;
@@ -159,13 +159,31 @@ public class OrderService {
         return resBean;
     }
 
-//    public List<Order> findAll(){
-//        List<Order> orders = orderMapper.findAll();
-//        for(Order order : orders) {
-//            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
-//        }
-//        return orders;
-//    }
+    public OrderListResBean find(){
+        OrderListResBean resBean = new OrderListResBean();
+        List<Order> orders = orderMapper.findAll();
+        List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
+
+        for(Order order : orders) {
+            OrderListResBean.OrderEntity entity = new OrderListResBean.OrderEntity();
+            entity.setId(order.getId());
+            entity.setOpenId(order.getOpenId());
+            entity.setGoodsName(order.getGoodsName());
+            entity.setGoodsKind(order.getGoodsKind());
+            entity.setStatus(order.getStatus());
+            entity.setNumber(order.getNumber());
+            entity.setPrice(order.getPrice());
+            entity.setPriceTotal(order.getPriceTotal());
+            entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            Address address = addressMapper.selectById(order.getAdressId().toString());
+            entity.setAddress(address.getAddress());
+            entity.setUserName(address.getName());
+            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            entityList.add(entity);
+        }
+        resBean.setOrderList(entityList);
+        return resBean;
+    }
 
     public OrderDelResBean del(Long id) {
         OrderDelResBean resBean = new OrderDelResBean();
