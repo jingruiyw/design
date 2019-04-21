@@ -89,17 +89,33 @@ public class OrderController {
     }
 
     @RequestMapping("/list/openId")
-    public OrderListResBean findAll(@Param("openId") String openId, @Param("status") String status) {
+    public OrderListResBean find(@Param("openId") String openId, @Param("status") Integer status) {
 
-        if(status == null) {
-            status = "";
+        String statusMsg;
+
+        switch (status) {
+            case 0:
+                statusMsg = "未付款";
+                break;
+            case 1:
+                statusMsg = "已付款";
+                break;
+            case 2:
+                statusMsg = "已发货";
+                break;
+            case 3:
+                statusMsg = "已完成";
+                break;
+            default:
+                statusMsg = "";
         }
-        return orderService.findAll(openId, status);
+
+        return orderService.find(openId, statusMsg);
     }
 
     @RequestMapping("/list")
-    public OrderListResBean find() {
-        return orderService.find();
+    public OrderListResBean findAll() {
+        return orderService.findAll();
     }
 
     @RequestMapping(value = "/del/batch", method = RequestMethod.POST)

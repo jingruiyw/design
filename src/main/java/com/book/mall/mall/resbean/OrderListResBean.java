@@ -2,7 +2,7 @@ package com.book.mall.mall.resbean;
 
 import java.util.List;
 
-public class OrderListResBean{
+public class OrderListResBean extends BaseResBean{
 
     List<OrderEntity> orderList;
 
@@ -26,6 +26,15 @@ public class OrderListResBean{
         private String createTime;
         private String userName;
         private String address;
+        private String orderNo;
+
+        public String getOrderNo() {
+            return orderNo;
+        }
+
+        public void setOrderNo(String orderNo) {
+            this.orderNo = orderNo;
+        }
 
         public Long getId() {
             return id;

@@ -6,7 +6,6 @@ import com.book.mall.mall.entity.Order;
 import com.book.mall.mall.mapper.AddressMapper;
 import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.mapper.OrderMapper;
-import com.book.mall.mall.mapper.UserMapper;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
@@ -29,9 +28,9 @@ public class OrderService {
     @Autowired
     private GoodsMapper goodsMapper;
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private AddressMapper addressMapper;
+//    @Autowired
+//    private UserMapper userMapper;
 
     public Order getById(Long id){
         return orderMapper.getById(id);
@@ -143,10 +142,10 @@ public class OrderService {
         return resBean;
     }
 
-    public OrderListResBean findAll(String openId, String status){
+    public OrderListResBean find(String openId, String status){
         OrderListResBean resBean = new OrderListResBean();
 
-        List<Order> orders = orderMapper.findAll(openId, status);
+        List<Order> orders = orderMapper.find(openId, status);
         List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
 
         for(Order order : orders) {
@@ -160,18 +159,32 @@ public class OrderService {
             entity.setPrice(order.getPrice());
             entity.setPriceTotal(order.getPriceTotal());
             entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
-            entity.setUserName(userMapper.selectByOpenId(openId).getName());
-            entity.setAddress(addressMapper.selectById(order.getAddressId()).getAddress());
-            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            entity.setOrderNo(order.getCreateTime());
+
+            Address address = addressMapper.selectById(order.getAddressId());
+
+            if(address == null) {
+                entity.setAddress("该地址已被删除");
+                entity.setUserName("该用户已被删除");
+            }
+
+            if(address != null) {
+                entity.setAddress(address.getAddress());
+                entity.setUserName(address.getName());
+            }
+
+//            entity.setUserName(userMapper.selectByOpenId(openId).getName());
+//            entity.setAddress(addressMapper.selectById(order.getAddressId()).getAddress());
+
             entityList.add(entity);
         }
         resBean.setOrderList(entityList);
         return resBean;
     }
 
-    public OrderListResBean find(){
+    public OrderListResBean findAll(){
         OrderListResBean resBean = new OrderListResBean();
-        List<Order> orders = orderMapper.findAll("","");
+        List<Order> orders = orderMapper.findAll();
         List<OrderListResBean.OrderEntity> entityList = new ArrayList<>();
 
         for(Order order : orders) {
@@ -185,10 +198,19 @@ public class OrderService {
             entity.setPrice(order.getPrice());
             entity.setPriceTotal(order.getPriceTotal());
             entity.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
-            Address address = addressMapper.selectById(order.getAddressId());
-            entity.setAddress(address.getAddress());
-            entity.setUserName(address.getName());
+            entity.setOrderNo(order.getCreateTime());
             order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+            Address address = addressMapper.selectById(order.getAddressId());
+
+            if(address == null) {
+                entity.setAddress("该地址已被删除");
+                entity.setUserName("该用户已被删除");
+            }
+
+            if(address != null) {
+                entity.setAddress(address.getAddress());
+                entity.setUserName(address.getName());
+            }
             entityList.add(entity);
         }
         resBean.setOrderList(entityList);
