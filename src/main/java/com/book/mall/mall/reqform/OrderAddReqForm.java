@@ -6,10 +6,19 @@ public class OrderAddReqForm {
     private String goodsName;
     private String goodsKind;
     private String status;
+    private Long addressId;
     private Integer number = 1;
     private Double price = 10.0;
     private Double priceTotal;
     private Long createTime;
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
 
     public Double getPriceTotal() {
         return priceTotal;

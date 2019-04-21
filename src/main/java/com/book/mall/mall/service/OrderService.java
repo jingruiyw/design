@@ -55,7 +55,7 @@ public class OrderService {
             return resBean;
         }
 
-        orderMapper.confirm(id, "确认收货");
+        orderMapper.confirm(id, "确认收货", order.getAdressId());
 
         return resBean;
     }
@@ -78,12 +78,12 @@ public class OrderService {
             resBean.setMsg("当前状态不能发货");
             return resBean;
         }
-        orderMapper.confirm(id, "已发货");
+        orderMapper.confirm(id, "已发货", order.getAdressId());
 
         return resBean;
     }
 
-    public OrderConfirmResBean confirm(Long id){
+    public OrderConfirmResBean confirm(Long id, Long addressId){
         OrderConfirmResBean resBean = new OrderConfirmResBean();
         resBean.setCode(0);
         resBean.setMsg("确认成功");
@@ -123,10 +123,10 @@ public class OrderService {
             return resBean;
         }
 
-        //修改商品的库存
+        //修改商品的库存和更新地址信息
         Integer newNum = good.getNumber() - order.getNumber();
         goodsMapper.changeNum(newNum, good.getId());
-        orderMapper.confirm(id, "已付款");
+        orderMapper.confirm(id, "已付款", addressId);
 
         return resBean;
     }

@@ -71,7 +71,7 @@ public class OrderController {
 
         List<OrderConfirmResBean> resBeanList = new ArrayList<>();
         idList.forEach(id -> {
-            resBeanList.add(orderService.confirm(id));
+            resBeanList.add(orderService.confirm(id, reqForm.getAddressId()));
         });
 
         try{
@@ -134,6 +134,11 @@ public class OrderController {
             resBean.setMsg("商品种类不能为空");
             return resBean;
         }
+
+        if(reqForm.getAddressId() == null) {
+            reqForm.setAddressId(1L);
+        }
+
 
         String name = reqForm.getGoodsName();
         String kind = reqForm.getGoodsKind();

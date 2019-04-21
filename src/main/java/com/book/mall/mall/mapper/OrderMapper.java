@@ -19,11 +19,11 @@ public interface OrderMapper {
     @Delete("delete from order_t where id = #{id}")
     public void del(@Param("id") Long id);
 
-    @Insert("insert into order_t (open_id, goods_name, goods_kind, status, number, price, price_total, create_time) values " +
-            "(#{openId}, #{goodsName}, #{goodsKind}, #{status}, #{number}, #{price}, #{priceTotal}, #{createTime})")
+    @Insert("insert into order_t (open_id, address_id, goods_name, goods_kind, status, number, price, price_total, create_time) values " +
+            "(#{openId}, #{addressId}, #{goodsName}, #{goodsKind}, #{status}, #{number}, #{price}, #{priceTotal}, #{createTime})")
     public void add(OrderAddReqForm reqForm);
 
-    @Update("update order_t set status = #{status} where id = #{id}")
-    public void confirm(@Param("id")Long id, @Param("status") String status);
+    @Update("update order_t set status = #{status} address_id = #{addressId} where id = #{id}")
+    public void confirm(@Param("id")Long id, @Param("status") String status, @Param("addressId") Long addressId);
 
 }
