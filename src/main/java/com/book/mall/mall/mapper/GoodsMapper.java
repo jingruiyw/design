@@ -45,6 +45,6 @@ public interface GoodsMapper {
     @Update("update goods set name= #{name}, price= #{price}, number= #{number}, kind= #{kind}, image=#{image}, status=#{status}, isbn = #{isbn}, remark=#{remark}, create_time=#{createTime} where id = #{id}")
     public int updateGoods(Goods goods);
 
-    @Update("update goods set number = #{number} where id = #{id")
+    @Update("update goods set number = #{number} where id = #{id}")
     int changeNum(@Param("number") Integer number, @Param("id") Long id);
 }
