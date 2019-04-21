@@ -2,13 +2,17 @@ package com.book.mall.mall.service;
 
 import com.book.mall.mall.entity.Goods;
 import com.book.mall.mall.entity.Order;
+import com.book.mall.mall.entity.User;
+import com.book.mall.mall.mapper.AddressMapper;
 import com.book.mall.mall.mapper.GoodsMapper;
 import com.book.mall.mall.mapper.OrderMapper;
+import com.book.mall.mall.mapper.UserMapper;
 import com.book.mall.mall.reqform.GoodsFindReqForm;
 import com.book.mall.mall.reqform.OrderAddReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
+import com.book.mall.mall.resbean.OrderListResBean;
 import com.book.mall.mall.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,10 @@ public class OrderService {
     private OrderMapper orderMapper;
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private AddressMapper addressMapper;
 
     public Order getById(Long id){
         return orderMapper.getById(id);
@@ -123,6 +131,21 @@ public class OrderService {
         orderMapper.add(reqForm);
         return resBean;
     }
+
+//    public OrderListResBean findAll(String openId){
+//        OrderListResBean resBean = new OrderListResBean();
+//
+//        List<Order> orders = orderMapper.findAll();
+//        User user = userMapper.selectByOpenId(openId);
+//        addressMapper.selectById()
+//        for(Order order : orders) {
+//            order.setCreateTime(DateUtil.formatDate(Long.parseLong(order.getCreateTime())));
+//        }
+//
+//        resBean.setUserName(user.getName());
+//
+//        return resBean;
+//    }
 
     public List<Order> findAll(){
         List<Order> orders = orderMapper.findAll();

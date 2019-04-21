@@ -9,6 +9,7 @@ import com.book.mall.mall.reqform.OrderDelReqForm;
 import com.book.mall.mall.resbean.OrderAddResBean;
 import com.book.mall.mall.resbean.OrderConfirmResBean;
 import com.book.mall.mall.resbean.OrderDelResBean;
+import com.book.mall.mall.resbean.OrderListResBean;
 import com.book.mall.mall.service.GoodsService;
 import com.book.mall.mall.service.OrderService;
 import com.sun.org.apache.regexp.internal.RE;
@@ -84,6 +85,11 @@ public class OrderController {
         });
         return resBean;
     }
+
+//    @RequestMapping("/list")
+//    public OrderListResBean findAll(@Param("openId") String openId) {
+//        return orderService.findAll(openId);
+//    }
 
     @RequestMapping("/list")
     public List<Order> findAll() {

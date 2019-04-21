@@ -4,6 +4,7 @@ public class Order {
 
     private Long id;
     private String openId;
+    private Long addressId;
     private String goodsName;
     private String goodsKind;
     private String status;
@@ -11,6 +12,14 @@ public class Order {
     private Double price;
     private Double priceTotal;
     private String createTime;
+
+    public Long getAdressId() {
+        return addressId;
+    }
+
+    public void setAdressId(Long adressId) {
+        this.addressId = adressId;
+    }
 
     public Double getPriceTotal() {
         return priceTotal;
