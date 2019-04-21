@@ -26,7 +26,7 @@ public interface OrderMapper {
             "(#{openId}, #{addressId}, #{goodsName}, #{goodsKind}, #{status}, #{number}, #{price}, #{priceTotal}, #{createTime})")
     public void add(OrderAddReqForm reqForm);
 
-    @Update("update order_t set status = #{status} address_id = #{addressId} where id = #{id}")
+    @Update("update order_t set status = #{status}, address_id = #{addressId} where id = #{id}")
     public void confirm(@Param("id")Long id, @Param("status") String status, @Param("addressId") Long addressId);
 
 }
