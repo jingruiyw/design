@@ -28,7 +28,7 @@ public class OrderController {
     @Autowired
     GoodsService goodsService;
 
-    @RequestMapping(value = "/get/goods", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/goods", method = RequestMethod.POST)
     public OrderConfirmResBean getGoods(@Param("id") Long id) {
         OrderConfirmResBean resBean = new OrderConfirmResBean();
         if(id == null) {

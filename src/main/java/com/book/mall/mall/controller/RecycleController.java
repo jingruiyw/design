@@ -25,7 +25,7 @@ public class RecycleController {
     RecycleService recycleService;
 
     @RequestMapping(value = "/find/by/open/id", method = RequestMethod.GET)
-    public RecycleFindByUserIdResBean findByUserId(@Param("openId") Long openId) {
+    public RecycleFindByUserIdResBean findByUserId(@Param("openId") String openId) {
         RecycleFindByUserIdResBean resBean = new RecycleFindByUserIdResBean();
 
         if(openId == null) {
@@ -33,7 +33,7 @@ public class RecycleController {
             return resBean;
         }
 
-        return recycleService.findByUserId(openId);
+        return recycleService.findByUserId(Long.parseLong(openId));
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
