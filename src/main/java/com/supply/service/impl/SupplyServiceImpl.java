@@ -47,10 +47,10 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
         Map<String, Object> condition = kkbPage.getCondition();
         QueryWrapper queryWrapper = new QueryWrapper();
         if(condition != null) {
-            if(condition.containsKey("name")) {
+            if(condition.containsKey("name") && !"".equals(condition.get("name"))) {
                 queryWrapper.like("name", condition.get("name"));
             }
-            if(condition.containsKey("type")) {
+            if(condition.containsKey("type") && !"".equals(condition.get("type"))) {
                 queryWrapper.eq("type", condition.get("type"));
             }
             if(condition.containsKey("status")) {
