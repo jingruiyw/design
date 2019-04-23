@@ -92,7 +92,7 @@ public class GoodsService {
         //不存在就添加
         //数量不传就默认是1
 
-        if(reqForm.getImage() == null) {
+        if("".equals(reqForm.getImage()) || reqForm.getImage()== null) {
             reqForm.setImage("/image/goods-default.jpg");
         }
 

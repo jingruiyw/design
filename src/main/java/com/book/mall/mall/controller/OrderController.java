@@ -75,7 +75,7 @@ public class OrderController {
             resBeanList.forEach(res -> {
                 if(res.getCode() != 0) {
                     resBean.setCode(res.getCode());
-                    resBean.setMsg("商品" + res.getId() + res.getMsg());
+                    resBean.setMsg("该商品" + res.getMsg());
                     resBean.setId(res.getId());
                     throw new RuntimeException(resBean.getMsg() + "抛异常了");
                 }
