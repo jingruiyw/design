@@ -1,15 +1,19 @@
 package com.supply.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.supply.core.KkbResponse;
+import com.supply.core.KkbStatus;
+import com.supply.domain.Form;
+import org.springframework.web.bind.annotation.*;
+import sun.security.krb5.internal.KDCOptions;
 
 @RestController
-@RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping("wx")
-    public void login() {
-
-
+    @PostMapping("/login")
+    public KkbResponse login(@RequestBody Form data) {
+        if("shantong".equals(data.getUsername()) && "123".equals(data.getPassword())) {
+            return new KkbResponse();
+        }
+        return new KkbResponse(KkbStatus.FAILURE);
     }
 }
