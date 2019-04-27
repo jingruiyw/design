@@ -28,6 +28,7 @@ public interface GoodsMapper {
             "<if test='name != null'> AND name like #{name} </if>" +
             "<if test='kind != null'> AND kind = #{kind} </if>" +
             "</where>" +
+            "order by create_time desc " +
             "limit #{start} offset #{end} " +
             "</script>")
     public List<Goods> findByConditions(GoodsFindReqForm reqForm);
