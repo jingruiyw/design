@@ -221,6 +221,19 @@ public class OrderService {
         OrderDelResBean resBean = new OrderDelResBean();
         resBean.setCode(0);
         resBean.setMsg("删除成功");
+
+        Order order = orderMapper.getById(id);
+        if(order == null) {
+            return resBean;
+        }
+
+        String status = order.getStatus();
+        if("已付款".equals(status) || "已发货".equals(status)) {
+            resBean.setCode(1);
+            resBean.setMsg("该状态订单不能删除");
+            return resBean;
+        }
+
         orderMapper.del(id);
 
         return resBean;
