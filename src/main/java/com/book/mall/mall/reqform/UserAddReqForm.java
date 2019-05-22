@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class UserAddReqForm {
 
     private Long id;
-    @NotBlank(message = "openId不能为空")
+//    @NotBlank(message = "openId不能为空")
     private String openId;
     @NotBlank(message = "名称不能为空")
     private String name;

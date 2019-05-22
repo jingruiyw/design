@@ -34,6 +34,7 @@ public class UserService {
     }
     public void addUser(UserAddReqForm userAddReqForm) {
         userAddReqForm.setCreateTime(Instant.now().toEpochMilli());
+        userAddReqForm.setOpenId(String.valueOf(Instant.now().toEpochMilli()));
         userMapper.insertUser(userAddReqForm);
     }
 }

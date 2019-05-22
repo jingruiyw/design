@@ -57,7 +57,8 @@ public class UserController {
     /**
      * 新增
      */
-    @PostMapping("/user/add")
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+//    @PostMapping("/user/add")
     public void addUser(@RequestBody @Valid UserAddReqForm userAddReqForm) {
         userService.addUser(userAddReqForm);
     }
