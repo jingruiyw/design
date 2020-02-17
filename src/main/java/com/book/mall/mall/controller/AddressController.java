@@ -1,0 +1,72 @@
+package com.book.mall.mall.controller;
+
+import com.book.mall.mall.entity.Address;
+import com.book.mall.mall.reqform.AddressAddReqForm;
+import com.book.mall.mall.reqform.AddressDelReqForm;
+import com.book.mall.mall.reqform.AddressUpdateReqForm;
+import com.book.mall.mall.resbean.AddressResBean;
+import com.book.mall.mall.service.AddressService;
+import com.book.mall.mall.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+@CrossOrigin
+@RestController
+public class AddressController {
+
+    @Autowired
+    AddressService addressService;
+    @Autowired
+    UserService userService;
+
+    /**
+     * 详情
+     */
+    @GetMapping("/address/{id}")
+    public Address getDetails(@PathVariable Long id) {
+        return addressService.getDetails(id);
+    }
+
+    /**
+     * 列表
+     */
+    @GetMapping("/address/list")
+    public List<Address> getList(@RequestParam(name = "openId") String openId) {
+//        User user = userService.getByOpenId(openId);
+//        if(user == null) {
+//            return null;
+//        }
+        return addressService.selectByOpenId(openId);
+    }
+    /**
+     * 添加
+     */
+    @RequestMapping(value = "/address/add", method = RequestMethod.POST)
+    public AddressResBean addAddress(@RequestBody @Valid AddressAddReqForm reqForm){
+        return addressService.addAddress(reqForm);
+    }
+
+    /**
+     * 修改
+     */
+    @PutMapping("/address")
+    public AddressResBean updateAddress(@RequestBody AddressUpdateReqForm reqForm){
+        return addressService.updateAddress(reqForm);
+    }
+
+    /**
+     * 删除
+     */
+
+    @RequestMapping(value = "/address/del", method = RequestMethod.POST)
+    public AddressResBean delAddress(@RequestBody AddressDelReqForm reqForm){
+        return addressService.delAddress(reqForm.getId());
+    }
+
+//    @RequestMapping(value = "/address/del", method = RequestMethod.POST)
+//    public AddressResBean delAddress(@Param("id") String id){
+//        return addressService.delAddress(id);
+//    }
+}

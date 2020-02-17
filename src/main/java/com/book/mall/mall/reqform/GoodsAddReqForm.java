@@ -1,6 +1,6 @@
-package com.book.mall.mall.entity;
+package com.book.mall.mall.reqform;
 
-public class Goods {
+public class GoodsAddReqForm {
 
     private Long id;
     private String name;
@@ -8,10 +8,10 @@ public class Goods {
     private Integer number;
     private String kind;
     private String image;
-    private String status;
     private Long isbn;
+    private String status;
     private String remark;
-    private String createTime;
+    private Long createTime;
 
     public Long getIsbn() {
         return isbn;
@@ -19,14 +19,6 @@ public class Goods {
 
     public void setIsbn(Long isbn) {
         this.isbn = isbn;
-    }
-
-    public String getKind() {
-        return kind;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
     }
 
     public Long getId() {
@@ -61,6 +53,14 @@ public class Goods {
         this.number = number;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
     public String getImage() {
         return image;
     }
@@ -85,11 +85,11 @@ public class Goods {
         this.remark = remark;
     }
 
-    public String getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 }
