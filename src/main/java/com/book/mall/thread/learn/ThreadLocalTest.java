@@ -15,6 +15,6 @@ public class ThreadLocalTest {
     public void method() {
 
         ThreadLocal threadLocal = new ThreadLocal();
-
+        System.out.println("添加测试合并commit");
     }
 }
