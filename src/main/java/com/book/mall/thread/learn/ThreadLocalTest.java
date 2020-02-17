@@ -19,5 +19,6 @@ public class ThreadLocalTest {
         System.out.println("添加测试合并commit01");
         System.out.println("添加测试合并commit01");
         System.out.println("添加测试合并commit01");
+        System.out.println("添加测试合并commit01");
     }
 }
