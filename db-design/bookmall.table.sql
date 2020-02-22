@@ -1,6 +1,6 @@
 
 -- 数据库名称 bookmall
-use bookMallbookmall;
+use bookMall;
 
 -- 地址表
 CREATE TABLE `address` (
