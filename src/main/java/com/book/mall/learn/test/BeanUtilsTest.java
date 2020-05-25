@@ -1,8 +1,8 @@
-package com.book.mall.thread.test;
+package com.book.mall.learn.test;
 
 import com.alibaba.fastjson.JSON;
-import com.book.mall.thread.model.User;
-import com.book.mall.thread.model.UserInfo;
+import com.book.mall.learn.model.User;
+import com.book.mall.learn.model.UserInfo;
 import org.springframework.beans.BeanUtils;
 
 /**

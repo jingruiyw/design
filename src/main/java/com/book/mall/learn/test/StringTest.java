@@ -1,4 +1,4 @@
-package com.book.mall.thread.test;
+package com.book.mall.learn.test;
 
 /**
  * ClassName: StringTest

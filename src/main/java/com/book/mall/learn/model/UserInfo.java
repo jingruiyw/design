@@ -1,4 +1,4 @@
-package com.book.mall.thread.model;
+package com.book.mall.learn.model;
 
 import lombok.Data;
 
@@ -11,12 +11,13 @@ import lombok.Data;
  * @since JDK 1.8
  */
 @Data
-public class User {
+public class UserInfo {
 
 	private String name;
 	private String age;
 	private String school;
 	private String work;
 	private String remark;
+	private Boolean flag;
 
 }

@@ -1,4 +1,4 @@
-package com.book.mall.thread.test;
+package com.book.mall.learn.test;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;

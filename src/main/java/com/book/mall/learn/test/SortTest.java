@@ -1,7 +1,10 @@
-package com.book.mall.thread.test;
+package com.book.mall.learn.test;
 
-import java.util.Collections;
-import java.util.List;
+import com.book.mall.learn.util.PinyinUtil;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * ClassName: SortTest
@@ -11,7 +14,81 @@ import java.util.List;
  * @author: Jingrui
  * @since JDK 1.8
  */
+
 public class SortTest {
+
+    private static final Pattern BeginWithNum = Pattern.compile("^[0-9]+.*");
+    private static final Pattern BeginWithLetter = Pattern.compile("^[a-zA-Z]+.*");
+
+    public static void main(String[] args) {
+        List<String> subareas = new ArrayList<>();
+        subareas.add("把");
+        subareas.add("阿萨");
+        subareas.add("mjy");
+        subareas.add("123");
+        subareas.add("mm");
+        subareas.add("￥%");
+        List<String> list = sortSubareas(subareas);
+        System.out.println(list);
+    }
+
+    /**
+     * 排序楼座
+     *
+     * @param subareas
+     * @return
+     */
+    private static List<String> sortSubareas(List<String> subareas) {
+        //只有一个直接返回
+        if (subareas == null || subareas.size() == 0 || subareas.size() == 1) {
+            return subareas;
+        }
+
+        //有多个值时
+        //字母开头/汉字开头
+        Set<String> letters = new TreeSet<>(((o1, o2) -> {
+
+            String lowerO1 = PinyinUtil.converterToFirstSpell(o1).toLowerCase();
+            String lowerO2 = PinyinUtil.converterToFirstSpell(o2).toLowerCase();
+            //都以数字开头, 比较
+            if (matchPattern(lowerO1, BeginWithNum) && matchPattern(lowerO1, BeginWithNum)) {
+                if (lowerO1.charAt(0) > lowerO2.charAt(0)) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+
+            //都以字母开头，比较
+            if (matchPattern(lowerO1, BeginWithLetter) && matchPattern(lowerO1, BeginWithLetter)) {
+                if (lowerO1.charAt(0) > lowerO2.charAt(0)) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+
+            //一个数字一个字母，字母排前面
+            if (matchPattern(lowerO1, BeginWithNum) && matchPattern(lowerO1, BeginWithLetter)) {
+                return -1;
+            } else if (matchPattern(lowerO1, BeginWithLetter) && matchPattern(lowerO1, BeginWithNum)){
+                return 1;
+            }
+
+            //数字、字母在特殊符号前
+            if (matchPattern(lowerO1, BeginWithNum) || matchPattern(lowerO1, BeginWithLetter)) {
+                return 1;
+            }
+            return -1;
+        }));
+
+//        letters.addAll(subareas);
+        for (String subarea : subareas) {
+            letters.add(subarea);
+        }
+        return new ArrayList<>(letters);
+    }
+
 
     public static int atoi(String str) {
         //这里要小心，需要判断有效性
@@ -104,5 +181,17 @@ public class SortTest {
             }
             return o1.length() > o2.length() ? 1 : -1;
         });
+    }
+
+    /**
+     * 正则匹配
+     *
+     * @param str
+     * @param pattern
+     * @return
+     */
+    private static boolean matchPattern(String str, Pattern pattern) {
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
     }
 }

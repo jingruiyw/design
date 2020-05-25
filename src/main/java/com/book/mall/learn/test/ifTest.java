@@ -1,4 +1,4 @@
-package com.book.mall.thread.test;
+package com.book.mall.learn.test;
 
 /**
  * ClassName: ifTest
@@ -15,7 +15,9 @@ public class ifTest {
         String str = "a";
         String str2 = "b";
 
-        method(str);
+
+        System.out.println(String.format("%02d分钟%02d秒", 100 / 60, 100 % 60));
+
     }
 
     private static void method (String msg) {
