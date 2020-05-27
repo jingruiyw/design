@@ -1,4 +1,4 @@
-package com.book.mall.leetcode.stack;
+package com.book.mall.leetcode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
