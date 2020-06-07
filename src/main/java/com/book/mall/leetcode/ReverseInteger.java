@@ -44,6 +44,7 @@ public class ReverseInteger {
 
     /**
      * ver.2.0
+     * 翻转整数
      *
      * @param x
      * @return
@@ -85,6 +86,7 @@ public class ReverseInteger {
 
     /**
      * ver.1.0
+     * 翻转整数
      *
      * @param x
      * @return
