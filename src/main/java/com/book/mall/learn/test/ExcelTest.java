@@ -36,7 +36,7 @@ public class ExcelTest {
         //去除表头，从第 1 行开始打印
         for (int i = 0; i < rows; i++) {
             Row row = sheet.getRow(i);
-            row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+//            row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
             //获取总列数
             int cols = row.getPhysicalNumberOfCells();
             for (int j = 0; j < cols; j++) {
