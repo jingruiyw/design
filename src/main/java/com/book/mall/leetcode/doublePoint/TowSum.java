@@ -1,4 +1,4 @@
-package com.book.mall.leetcode;
+package com.book.mall.leetcode.doublePoint;
 
 import com.alibaba.fastjson.JSON;
 
