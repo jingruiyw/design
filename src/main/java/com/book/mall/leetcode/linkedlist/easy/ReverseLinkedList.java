@@ -1,4 +1,4 @@
-package com.book.mall.leetcode;
+package com.book.mall.leetcode.linkedlist.easy;
 
 import com.book.mall.leetcode.bean.ListNode;
 
@@ -46,10 +46,13 @@ public class ReverseLinkedList {
         ListNode prev = null;
         ListNode curr = head;
 
+        //前面是转换好的
         while (curr != null) {
             ListNode nextTemp = curr.next;
             curr.next = prev;
+            //更新prex
             prev = curr;
+            //更新curr
             curr = nextTemp;
         }
         return prev;

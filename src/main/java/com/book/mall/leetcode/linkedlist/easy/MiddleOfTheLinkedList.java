@@ -1,4 +1,4 @@
-package com.book.mall.leetcode;
+package com.book.mall.leetcode.linkedlist.easy;
 
 import com.book.mall.leetcode.bean.ListNode;
 

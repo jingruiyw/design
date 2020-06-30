@@ -1,9 +1,7 @@
-package com.book.mall.leetcode.linkedlist;
+package com.book.mall.leetcode.linkedlist.easy;
 
 import com.book.mall.leetcode.bean.ListNode;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * ClassName: RemoveDuplicatesfromSortedList
