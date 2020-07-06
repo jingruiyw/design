@@ -1,10 +1,7 @@
 package com.book.mall.leetcode.str;
 
-import com.book.mall.leetcode.bean.ListNode;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
