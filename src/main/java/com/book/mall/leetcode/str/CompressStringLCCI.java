@@ -20,6 +20,26 @@ public class CompressStringLCCI {
         System.out.println(compressStringV2("aabcccccaaa"));
     }
 
+    /**
+     * 双指针找位数差值
+     *
+     * @param S
+     * @return
+     */
+    public String compressStringV3(String S) {
+        StringBuilder sb = new StringBuilder();
+        int a = 0;
+        int b = 0;
+        while (a < S.length()) {
+            while (b < S.length() && S.charAt(a) == S.charAt(b)) {
+                b++;
+            }
+            sb.append(S.charAt(a)).append((b - a));
+            a = b;
+        }
+        return sb.length() >= S.length() ? S : sb.toString();
+    }
+
     private static String compressStringV2(String S) {
         if (S == null || S.length() == 0) {
             return S;
@@ -31,7 +51,7 @@ public class CompressStringLCCI {
             if (S.charAt(i) == S.charAt(i - 1)) {
                 count++;
             } else {
-                sb.append(S.charAt(i-1));
+                sb.append(S.charAt(i - 1));
                 sb.append(count);
                 count = 1;
             }
