@@ -1,4 +1,4 @@
-package com.book.mall.leetcode.str;
+package com.book.mall.leetcode.str.easy;
 
 /**
  * ClassName: DefangingAnIPAddress

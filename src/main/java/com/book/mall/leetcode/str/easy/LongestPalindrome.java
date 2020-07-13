@@ -1,4 +1,4 @@
-package com.book.mall.leetcode.str;
+package com.book.mall.leetcode.str.easy;
 
 import java.util.HashSet;
 import java.util.Set;
