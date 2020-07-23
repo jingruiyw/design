@@ -1,4 +1,4 @@
-package com.book.mall.leetcode.doublePoint;
+package com.book.mall.leetcode.hash;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +38,7 @@ public class ContainsDuplicateII {
 
     /**
      * 1.用散列表表示滑动窗口值
+     * 也可以用一个set只存储k个值，遍历数组，set中有就return true; 没有则添加一个，然后移除k个最早的值；
      *
      * @param nums
      * @param k
