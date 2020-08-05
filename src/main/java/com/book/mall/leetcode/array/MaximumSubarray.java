@@ -36,10 +36,12 @@ public class MaximumSubarray {
         }
         for (int i = 1; i < nums.length; i++) {
             if (nums[i - 1] >= 0) {
+                //前一位大于0，则将其加到自身；前一位小于0，保留自身；
                 nums[i] += nums[i - 1];
             }
         }
 
+        //取数组里面最大的值就是连续数组最大值
         int result = nums[0];
         for (Integer num : nums) {
             if (num > result) {
