@@ -15,6 +15,9 @@ public class Singleton {
 
     //私有化构造方法
     private Singleton() {
+        if (singleton != null) {
+            throw new RuntimeException("Can not create");
+        }
     }
 
     /**
@@ -36,6 +39,10 @@ public class Singleton {
         return singleton;
     }
 
+    //为了避免ObjectInputStream读取对象是没有readResolve
+    private Object readResolve() {
+        return singleton;
+    }
 
     private static class SingletonInstance {
         private static Singleton singleton = new Singleton();
