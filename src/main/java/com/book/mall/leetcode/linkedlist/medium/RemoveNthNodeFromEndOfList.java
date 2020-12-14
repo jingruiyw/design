@@ -1,6 +1,6 @@
 package com.book.mall.leetcode.linkedlist.medium;
 
-import com.book.mall.leetcode.bean.ListNode;
+import com.book.mall.leetcode.linkedlist.ListNode;
 
 /**
  * ClassName: RemoveNthNodeFromEndOfList

@@ -1,6 +1,6 @@
 package com.book.mall.leetcode.linkedlist.easy;
 
-import com.book.mall.leetcode.bean.ListNode;
+import com.book.mall.leetcode.linkedlist.ListNode;
 
 /**
  * ClassName: ConvertBinaryNumberInALinkedListToInteger
