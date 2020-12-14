@@ -1,4 +1,6 @@
-package com.book.mall.leetcode.tree;
+package com.book.mall.leetcode.tree.medium;
+
+import com.book.mall.leetcode.tree.TreeNode;
 
 import java.util.*;
 

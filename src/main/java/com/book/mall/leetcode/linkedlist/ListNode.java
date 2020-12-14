@@ -1,4 +1,4 @@
-package com.book.mall.leetcode.bean;
+package com.book.mall.leetcode.linkedlist;
 
 import lombok.Data;
 
