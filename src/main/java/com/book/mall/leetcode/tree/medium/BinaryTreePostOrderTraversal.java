@@ -16,6 +16,41 @@ public class BinaryTreePostOrderTraversal {
 
 
     /**
+     * 练习
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> postOrderTraversal3(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode treeNode = root;
+        TreeNode prev = null;
+        while (treeNode != null || !stack.isEmpty()) {
+            while (treeNode != null) {
+                stack.push(treeNode);
+                treeNode = treeNode.left;
+            }
+
+            if (!stack.isEmpty()) {
+                treeNode = stack.pop();
+                if (treeNode.right == null || treeNode.right == prev) {
+                    result.add(treeNode.val);
+                    prev = treeNode;
+                    treeNode = null;
+                } else {
+                    stack.push(treeNode);
+                    treeNode = treeNode.right;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * 递归实现
      *
      * @param root
