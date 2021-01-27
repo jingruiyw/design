@@ -26,6 +26,7 @@ public class ArrayListTest {
 
         List<String> result = sortSubareas(list);
         System.out.println(result);
+        System.out.println();
 
 
     }
