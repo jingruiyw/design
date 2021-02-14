@@ -1,4 +1,4 @@
-package com.book.mall.code.dynamicprogramming;
+package com.book.mall.code.dynamicProgramming;
 
 /**
  * ClassName: MaxSubArray

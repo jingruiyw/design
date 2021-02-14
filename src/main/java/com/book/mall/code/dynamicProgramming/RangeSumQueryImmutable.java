@@ -1,6 +1,4 @@
-package com.book.mall.code.dynamicprogramming;
-
-import com.alibaba.fastjson.JSON;
+package com.book.mall.code.dynamicProgramming;
 
 /**
  * ClassName: RangeSumQueryImmutable
