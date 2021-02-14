@@ -14,6 +14,42 @@ import java.util.*;
  */
 public class BinaryTreePostOrderTraversal {
 
+    /**
+     * 后序遍历非递归实现，目前觉得最简单的一种
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> postOrderTraversal4(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> resStack = new Stack<>();
+        TreeNode treeNode;
+        stack.push(root);
+        //入栈的顺序是左右根，采用后序遍历的逆序
+        while (!stack.isEmpty()) {
+            treeNode = stack.pop();
+            resStack.push(treeNode);
+            //再放左
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+            //先放右
+            if (treeNode.right != null) {
+                stack.push(treeNode.right);
+            }
+
+
+        }
+        while (!resStack.isEmpty()) {
+            result.add(resStack.pop().val);
+        }
+        return result;
+    }
+
 
     /**
      * 练习
