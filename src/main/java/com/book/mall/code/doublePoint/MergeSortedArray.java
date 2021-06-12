@@ -28,14 +28,50 @@ import java.util.Arrays;
  */
 public class MergeSortedArray {
     public static void main(String[] args) {
-        int[] num1 = {1, 2, 3, 0, 0, 0};
+//        int[] num1 = {1, 2, 3, 0, 0, 0};
+        int[] num1 = {1, 2, 3};
 //        int[] num1 = {0};
         int[] num2 = {2, 5, 6};
 //        int[] num2 = {1};
 
 //        mergeV1(num1, 3, num2, 3);
-        mergeV2(num1, 3, num2, 3);
+//        mergeV2(num1, 3, num2, 3);
 //        mergeV2(num1, 1, num2, 1);
+        System.out.println(JSON.toJSONString(merge(num1, 3, num2, 3)));
+    }
+
+    public static int[] merge(int[] nums1, int m, int[] nums2, int n) {
+        if (nums1.length == 0) {
+            return nums2;
+        }
+        if (nums2.length == 0) {
+            return nums1;
+        }
+        int[] res = new int[m + n];
+        int a = 0;
+        int b = 0;
+        int p = 0;
+        while (a < m && b < n) {
+            if(nums1[a] < nums2[b]) {
+                res[p] = nums1[a];
+                a++;
+            } else {
+                res[p] = nums2[b];
+                b++;
+            }
+            p++;
+        }
+        while (a < nums1.length){
+            res[p] = nums1[a];
+            a++;
+            p++;
+        }
+        while (b < nums2.length){
+            res[p] = nums2[b];
+            b++;
+            p++;
+        }
+        return res;
     }
 
     /**

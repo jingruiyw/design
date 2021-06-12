@@ -1,5 +1,7 @@
 package com.book.mall.test;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
 /**
  * ClassName: Test
  * Description:
@@ -10,13 +12,11 @@ package com.book.mall.test;
  */
 public class Test {
 
-
+    @Scheduled
     public static void main(String[] args) {
-        String str = "验证码是：{code}, 机器人将等待您 {time} 分钟";
-        String str1 = "验证码是, 机器人将等待您 {time} 分钟";
-
-        System.out.println(str.replace("{code}", "1234").replace("{time}", "3"));
-        System.out.println(str1.replace("{code}", "1234").replace("{time}", "3"));
+        Integer a = null;
+        int b;
+        b = a;
     }
 
 }
