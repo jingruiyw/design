@@ -1,9 +1,6 @@
 package com.book.mall.code;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -51,8 +48,38 @@ public class ValidParenthesis {
 //        System.out.println(isValid("{[]}"));
 //        System.out.println(isValid("{"));
 //        System.out.println(isValid(")"));
-        System.out.println(isValid2("()"));
+        System.out.println(isValid3("[]]"));
 //        System.out.println("".length());
+    }
+
+    private static boolean isValid3(String s) {
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('{', '}');
+        map.put('[', ']');
+
+        Stack<Character> stack = new Stack<>();
+        for (Character c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                stack.push(c);
+                continue;
+            }
+            //1、循环过程中栈不够用了，无效
+            if (stack.empty()) {
+                return false;
+            }
+            Character left = stack.pop();
+            // 2、栈内元素和当前元素无法配对，无效
+            if (map.get(left) == null || !map.get(left).equals(c)) {
+                return false;
+            }
+        }
+        // 3、循环完毕后，栈内还有元素，无效
+        return stack.empty();
     }
 
     /**
@@ -91,6 +118,7 @@ public class ValidParenthesis {
     /**
      * 递归方法
      * 比较消耗内存，通过递归去除成对儿括号，比较消耗内存
+     *
      * @param s
      * @return
      */
@@ -100,7 +128,7 @@ public class ValidParenthesis {
 //        } else {
 //            return "".equals(s);
 //        }
-        if(s.contains("()") || s.contains("{}") || s.contains("[]")) {
+        if (s.contains("()") || s.contains("{}") || s.contains("[]")) {
             return isValid2(s.replace("()", "").replace("{}", "").replace("[]", ""));
         }
         return s.length() == 0;

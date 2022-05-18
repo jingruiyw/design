@@ -13,6 +13,29 @@ import com.book.mall.code.linkedlist.ListNode;
  */
 public class MergeTwoSortedLists {
 
+    private static ListNode mergeTwoListsV3(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode prevHead = new ListNode(-1);
+        ListNode prev = prevHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                prev.next = l1;
+                l1 = l1.next;
+            } else {
+                prev.next = l2;
+                l2 = l2.next;
+            }
+            prev = prev.next;
+        }
+        //全循环完毕后，剩下的把 prev next 直接指过去即可；
+        prev.next = l1 == null ? l2 : l1;
+        return prevHead.next;
+    }
 
     /**
      * 2.递归思想：第一个小的节点的next指向和整体结构相同，可用递归

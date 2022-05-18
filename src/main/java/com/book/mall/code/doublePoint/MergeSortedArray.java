@@ -37,7 +37,37 @@ public class MergeSortedArray {
 //        mergeV1(num1, 3, num2, 3);
 //        mergeV2(num1, 3, num2, 3);
 //        mergeV2(num1, 1, num2, 1);
-        System.out.println(JSON.toJSONString(merge(num1, 3, num2, 3)));
+        System.out.println(JSON.toJSONString(merge3(num1, 3, num2, 3)));
+    }
+
+    public static int[] merge3(int[] nums1, int m, int[] nums2, int n) {
+        if ((nums1 == null || nums1.length == 0) && (nums2 != null && nums2.length != 0)) {
+            return nums2;
+        }
+        if ((nums2 == null || nums2.length == 0) && (nums1 != null && nums1.length != 0)) {
+            return nums1;
+        }
+
+        int p1 = m - 1;
+        int p2 = n - 1;
+        int l = nums1.length - 1;
+        while (p1 >= 0 && p2 >= 0) {
+            if (nums1[p1] >= nums2[p2]) {
+                nums1[l] = nums1[p1];
+                p1--;
+            } else {
+                nums1[l] = nums2[p2];
+                p2--;
+            }
+            l--;
+        }
+
+        while (p2 >= 0) {
+            nums1[l] = nums2[p2];
+            p2--;
+            l--;
+        }
+        return nums1;
     }
 
     public static int[] merge(int[] nums1, int m, int[] nums2, int n) {
@@ -52,7 +82,7 @@ public class MergeSortedArray {
         int b = 0;
         int p = 0;
         while (a < m && b < n) {
-            if(nums1[a] < nums2[b]) {
+            if (nums1[a] < nums2[b]) {
                 res[p] = nums1[a];
                 a++;
             } else {
@@ -61,12 +91,12 @@ public class MergeSortedArray {
             }
             p++;
         }
-        while (a < nums1.length){
+        while (a < nums1.length) {
             res[p] = nums1[a];
             a++;
             p++;
         }
-        while (b < nums2.length){
+        while (b < nums2.length) {
             res[p] = nums2[b];
             b++;
             p++;
@@ -78,6 +108,7 @@ public class MergeSortedArray {
      * 2.双指针，从后往前比较
      * 时间复杂度 : O(n + m)O(n+m)。
      * 空间复杂度 : O(1)O(1)。
+     *
      * @param nums1
      * @param m
      * @param nums2
