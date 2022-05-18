@@ -16,9 +16,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public Object securityLogin() {
-
-
-
         return "登录成功";
     }
 }

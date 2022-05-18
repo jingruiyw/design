@@ -23,6 +23,23 @@ public class RemoveDuplicatesFromSortedList {
         System.out.println(deleteDuplicates(listNode));
     }
 
+    private static ListNode deleteDuplicatesV3(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode curr = head;
+        while (curr.next != null) {
+            ListNode next = curr.next;
+            int temp = curr.val;
+            if (temp == next.val) {
+                curr.next = curr.next.next;
+                continue;
+            }
+            curr = next;
+        }
+        return head;
+    }
+
     /**
      * 递归法
      *
@@ -44,18 +61,18 @@ public class RemoveDuplicatesFromSortedList {
     }
 
 
-        /**
-         * 1.考察对链表的操作:
-         * 1) curr.next 与 curr重复，curr不变，删除curr.next,直到不重复
-         * 2）curr.next 与 curr不重复，curr向后移动，以此类推
-         * 3) 当遍历到最后一次，curr指向链表最后一个节点，curr.next = null，此时无需再遍历，重复项皆已去除
-         *
-         * time:O(n)
-         * space:O(1)
-         *
-         * @param head
-         * @return
-         */
+    /**
+     * 1.考察对链表的操作:
+     * 1) curr.next 与 curr重复，curr不变，删除curr.next,直到不重复
+     * 2）curr.next 与 curr不重复，curr向后移动，以此类推
+     * 3) 当遍历到最后一次，curr指向链表最后一个节点，curr.next = null，此时无需再遍历，重复项皆已去除
+     * <p>
+     * time:O(n)
+     * space:O(1)
+     *
+     * @param head
+     * @return
+     */
     private static ListNode deleteDuplicates(ListNode head) {
         ListNode curr = head;
         while (curr != null && curr.next != null) {

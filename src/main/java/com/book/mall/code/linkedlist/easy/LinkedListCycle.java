@@ -16,6 +16,24 @@ import java.util.Set;
  */
 public class LinkedListCycle {
 
+    public boolean hasCycleV3(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /**
      * 2.快慢指针: 有环则快指针会追上慢指针，两指针相等；无环则最终两指针都为null
      * time：O(n)
