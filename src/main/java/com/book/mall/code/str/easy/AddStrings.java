@@ -15,8 +15,34 @@ public class AddStrings {
         System.out.println(addStrings("9", "9"));
     }
 
+    public static String addStrings1(String num1, String num2) {
+        int p1 = num1.length() - 1;
+        int p2 = num2.length() - 1;
+        int add = 0;
+        //最终字符倒序
+        StringBuilder sb = new StringBuilder();
+        while (p1 >= 0 || p2 >= 0 || add > 0) {
+            //即将相加的两个个位数
+            int a1 = 0;
+            int a2 = 0;
+            if (p1 >= 0) {
+                a1 = num1.charAt(p1) - '0';
+            }
+            if (p2 >= 0) {
+                a2 = num2.charAt(p2) - '0';
+            }
+            int sum = a1 + a2 + add;
+            sb.append(sum % 10);
+            add = sum >= 10 ? 1 : 0;
+            p1--;
+            p2--;
+        }
+        return sb.reverse().toString();
+    }
+
     /**
      * 双指针，需要注意循环终止的条件，size1，size2，addOne有一个满足条件则进循环
+     *
      * @param num1
      * @param num2
      * @return

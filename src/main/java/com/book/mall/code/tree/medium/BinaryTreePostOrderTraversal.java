@@ -14,6 +14,48 @@ import java.util.*;
  */
 public class BinaryTreePostOrderTraversal {
 
+    public List<Integer> postOrderTraversal5(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        TreeNode treeNode = root;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(treeNode);
+        Stack<TreeNode> resStack = new Stack<>();
+
+        while (!stack.isEmpty()) {
+            treeNode = stack.pop();
+            resStack.push(treeNode);
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+            if (treeNode.right != null) {
+                stack.push(treeNode.right);
+            }
+        }
+        while (!resStack.isEmpty()) {
+            res.add(resStack.pop().val);
+        }
+        return res;
+    }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        postOrder1(res, root);
+        return res;
+    }
+
+    public static void postOrder1(List<Integer> res, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postOrder1(res, root.left);
+        postOrder1(res, root.right);
+        res.add(root.val);
+    }
+
+
     /**
      * 后序遍历非递归实现，目前觉得最简单的一种
      *
@@ -41,8 +83,6 @@ public class BinaryTreePostOrderTraversal {
             if (treeNode.right != null) {
                 stack.push(treeNode.right);
             }
-
-
         }
         while (!resStack.isEmpty()) {
             result.add(resStack.pop().val);

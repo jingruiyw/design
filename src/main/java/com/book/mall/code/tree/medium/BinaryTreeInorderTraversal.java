@@ -1,25 +1,57 @@
 package com.book.mall.code.tree.medium;
 
+import com.book.mall.code.linkedlist.ListNode;
 import com.book.mall.code.tree.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * ClassName: BinaryTreeInorderTraversal
  * Description: 二叉树的中序遍历
- *
+ * <p>
  * date: 2020/12/7 12:06 上午
  *
  * @author: Jingrui
  * @since JDK 1.8
  */
 public class BinaryTreeInorderTraversal {
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        TreeNode treeNode = root;
+        Stack<TreeNode> stack = new Stack<>();
+        while (treeNode != null || !stack.isEmpty()) {
+            while (treeNode != null) {
+                stack.push(treeNode);
+                treeNode = treeNode.left;
+            }
+            treeNode = stack.pop();
+            res.add(treeNode.val);
+            treeNode = treeNode.right;
+        }
+        return res;
+    }
+
+    public List<Integer> inorderTraversal1(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        inOrder(res, root);
+        return res;
+    }
+
+    public static void inOrder(List<Integer> res, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(res, root.left);
+        res.add(root.val);
+        inOrder(res, root.right);
+    }
 
     /**
      * 1、递归
+     *
      * @param root
      * @return
      */
@@ -41,6 +73,7 @@ public class BinaryTreeInorderTraversal {
 
     /**
      * 2、栈
+     *
      * @param root
      * @return
      */

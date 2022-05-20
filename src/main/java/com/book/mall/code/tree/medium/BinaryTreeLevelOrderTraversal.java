@@ -18,6 +18,70 @@ import java.util.Queue;
  */
 public class BinaryTreeLevelOrderTraversal {
 
+    /**
+     * 递归
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder4(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        order(root, 1, res);
+        return res;
+    }
+
+    private void order(TreeNode root, int index, List<List<Integer>> res) {
+        if (res.size() < index) {
+            res.add(new ArrayList<>());
+        }
+        // 添加元素
+        res.get(index - 1).add(root.val);
+        if (root.left != null) {
+            order(root.left, index + 1, res);
+        }
+        if (root.right != null) {
+            order(root.right, index + 1, res);
+        }
+    }
+
+    /**
+     * 非递归
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder3(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        TreeNode treeNode;
+        while (!queue.isEmpty()) {
+            int n = queue.size();
+            List<Integer> data = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                treeNode = queue.poll();
+                data.add(treeNode.val);
+                if (treeNode.left != null) {
+                    queue.offer(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    queue.offer(treeNode.right);
+                }
+                if (i == n - 1) {
+                    //每一行最后一个
+                    res.add(data);
+                }
+            }
+        }
+        return res;
+    }
+
 
     /**
      * 二叉树的广度优先遍历：递归实现

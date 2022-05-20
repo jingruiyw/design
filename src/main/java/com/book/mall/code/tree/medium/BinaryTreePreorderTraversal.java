@@ -18,6 +18,57 @@ import java.util.Stack;
  */
 public class BinaryTreePreorderTraversal {
 
+    /**
+     * 非递归
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal3(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode treeNode = root;
+        while (treeNode != null || !stack.isEmpty()) {
+            while (treeNode != null) {
+                stack.push(treeNode);
+                result.add(treeNode.val);
+                // 左节点
+                treeNode = treeNode.left;
+            }
+            if (!stack.isEmpty()) {
+                treeNode = stack.pop();
+                // 右节点
+                treeNode = treeNode.right;
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * 递归
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        preOrder1(res, root);
+        return res;
+    }
+
+    public void preOrder1(List<Integer> result, TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        result.add(treeNode.val);
+        preOrder1(result, treeNode.left);
+        preOrder1(result, treeNode.right);
+    }
+
 
     /**
      * 使用栈
