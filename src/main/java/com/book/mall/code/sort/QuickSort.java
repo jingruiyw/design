@@ -17,9 +17,48 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] array = {9, 4, 6, 2, 7, 3, 1, 4};
+        int[] array1 = {9, 4, 6, 2, 7, 3, 1, 4,4};
         sort(array, 0, 7);
         //[1,2,3,4,4,6,7,9]
         System.out.println(JSON.toJSON(array));
+        sort1(array1, 0, 8);
+        System.out.println(JSON.toJSON(array1));
+    }
+
+    private static void sort1(int[] arr, int l, int r) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        if (l >= r) {
+            return;
+        }
+        // 寻找基准下标
+        int left = l;
+        int right = r;
+        // 基准
+        int num = arr[left];
+        while (left < right) {
+            // 右侧
+            while (left < right && arr[right] >= num) {
+                right--;
+            }
+            if (left < right) {
+                arr[left] = arr[right];
+            }
+
+            // 左侧
+            while (left < right && arr[left] < num) {
+                left++;
+            }
+            if (left < right) {
+                arr[right] = arr[left];
+            }
+            if (left >= right) {
+                arr[left] = num;
+            }
+        }
+        sort1(arr, l, left - 1);
+        sort1(arr, left + 1, r);
     }
 
     /**

@@ -20,6 +20,31 @@ public class BubbleSort {
         int[] array = {9, 4, 6, 2, 7, 3, 1, 4};
         //[1,2,3,4,4,6,7,9]
         System.out.println(JSON.toJSON(sort(array)));
+        System.out.println(JSON.toJSON(sort1(array)));
+    }
+
+    /**
+     * 练习
+     *
+     * @param array
+     * @return
+     */
+    private static int[] sort1(int[] array) {
+        if (array == null || array.length == 0) {
+            return array;
+        }
+        for (int i = 0; i < array.length; i++) {
+            // 注意此处需要-1
+            for (int j = 0; j < array.length - i - 1; j++) {
+                if (array[j] > array[j]) {
+                    //交换
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        return array;
     }
 
 
